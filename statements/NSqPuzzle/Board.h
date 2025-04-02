@@ -77,7 +77,7 @@ class InvalidBoardException: public Exception {
 
 
 template<>
-inline int Problem<Board>::heuristic(Board);
+inline double Problem<Board>::heuristic(Board);
 
 template<>
 std::vector<std::pair<std::string, Board>> Problem<Board>::getAdjacent(Board);

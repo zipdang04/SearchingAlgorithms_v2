@@ -12,12 +12,12 @@ class AStar: public SearchingAlgorithm<State> {
 			State _start = (this -> statement).getSource();
 			const State DESTINATION = (this -> statement).getDestination();
 			
-			std::unordered_map<State, int> *g = &(this -> g);
+			std::unordered_map<State, double> *g = &(this -> g);
 			std::unordered_map<State, std::string> *actionTrace = &(this -> actionTrace);
 			
 			(*g)[_start] = 0; 
 			(*actionTrace)[_start] = "";
-			int initH = (this -> statement).heuristic(_start);
+			double initH = (this -> statement).heuristic(_start);
 			pq.emplace(_start, initH, 0, initH);
 
 			while (not pq.empty()) {
@@ -35,8 +35,8 @@ class AStar: public SearchingAlgorithm<State> {
 					if (it != g -> end() and it -> second <= currentInfo.g)	// currently better
 						continue;
 
-					int newH = (this -> statement).heuristic(newState);
-					int newG = currentInfo.g + 1;
+					double newH = (this -> statement).heuristic(newState);
+					double newG = currentInfo.g + 1;
 					(*g)[newState] = newG;
 					(*actionTrace)[newState] = action;
 					pq.emplace(newState, newG + newH, newG, newH);

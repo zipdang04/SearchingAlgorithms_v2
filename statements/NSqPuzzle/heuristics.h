@@ -2,7 +2,7 @@
 #include "Board.h"
 
 namespace Heuristic {
-	inline int ManhattanDistance(Board board) {
+	inline double ManhattanDistance(Board board) {
 		int ptr = 0, answer = 0;
 		for (int row = 0; row < Board::SIZE; row++)
 		for (int col = 0; col < Board::SIZE; col++, ptr++){

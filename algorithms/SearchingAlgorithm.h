@@ -10,7 +10,7 @@ class SearchingAlgorithm: public Algorithm {
 		bool FINISHED = false;
 	protected:
 		Problem<State> statement;
-		std::unordered_map<State, int> g;
+		std::unordered_map<State, double> g;
 		std::unordered_map<State, std::string> actionTrace;
 
 		void FINISH_SEARCHING() { FINISHED = true; }
@@ -24,8 +24,8 @@ class SearchingAlgorithm: public Algorithm {
 
 template<class State>
 struct StateInfo {
-	State state; int f, g, h;
-	StateInfo(State state, int f, int g, int h): state(state), f(f), g(g), h(h) {}
+	State state; double f, g, h;
+	StateInfo(State state, double f, double g, double h): state(state), f(f), g(g), h(h) {}
 
 	bool operator < (StateInfo a) const {
 		return (f != a.f) ? (f < a.f) : (

@@ -22,7 +22,7 @@ class FocalSearch: public SearchingAlgorithm<State> {
 		std::set<StateInfo<State>, CompareF> openList;
 		std::set<StateInfo<State>, CompareH> focalList;
 
-		void updateFocal(int lastFMin) {
+		void updateFocal(double lastFMin) {
 			lastFMin = round(lastFMin * eps);
 			auto it = openList.lower_bound(StateInfo<State>(State(), 0, 0, 0));
 			while (it != openList.end() and it -> f <= lastFMin) {
@@ -33,17 +33,17 @@ class FocalSearch: public SearchingAlgorithm<State> {
 			State _start = (this -> statement).getSource();
 			const State DESTINATION = (this -> statement).getDestination();
 
-			std::unordered_map<State, int> *g = &(this -> g);
+			std::unordered_map<State, double> *g = &(this -> g);
 			std::unordered_map<State, std::string> *actionTrace = &(this -> actionTrace);
 
 			(*g)[_start] = 0; 
 			(*actionTrace)[_start] = "";
-			int initH = (this -> statement).heuristic(_start);
+			double initH = (this -> statement).heuristic(_start);
 			openList.emplace(_start, initH, 0, initH);
 			focalList.emplace(_start, initH, 0, initH);
 
 			while (not openList.empty()) {
-				int fMin = openList.begin() -> f;
+				double fMin = openList.begin() -> f;
 				
 				StateInfo<State> node = (not focalList.empty()) ? *focalList.begin() : *openList.begin();
 				focalList.erase(node); openList.erase(node);
@@ -53,12 +53,12 @@ class FocalSearch: public SearchingAlgorithm<State> {
 				}
 				
 				for (auto [action, newState]: (this -> statement).getAdjacent(node.state)) {
-					int newG = node.g + 1, h = (this -> statement).heuristic(newState);
-					int newF = newG + h;
+					double newG = node.g + 1, h = (this -> statement).heuristic(newState);
+					double newF = newG + h;
 
 					auto itG = g -> find(newState);
 					if (itG != g -> end()) {
-						int oldG = itG -> second;
+						double oldG = itG -> second;
 						if (oldG <= newG) continue;
 
 						openList.erase(StateInfo<State>(newState, oldG + h, oldG, h));

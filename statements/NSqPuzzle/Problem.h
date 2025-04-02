@@ -3,7 +3,7 @@
 #include "heuristics.h"
 
 template<>
-int Problem<Board>::heuristic(Board board) {
+double Problem<Board>::heuristic(Board board) {
 	return Heuristic::ManhattanDistance(board);
 }
 template<>

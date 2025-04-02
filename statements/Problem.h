@@ -14,7 +14,7 @@ class Problem {
 		State getSource() { return SOURCE; }
 		State getDestination() { return DESTINATION; }
 		
-		virtual int heuristic(State state) {
+		virtual double heuristic(State state) {
 			throw NotImplementedException("no heuristics implemented");
 		}
 		virtual std::vector<std::pair<std::string, State>> getAdjacent(State state) {
