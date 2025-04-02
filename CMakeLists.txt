@@ -1,13 +1,15 @@
 cmake_minimum_required(VERSION 3.10.0)
 project(SearchingAlgorithmsV2 VERSION 0.1.0 LANGUAGES C CXX)
-add_compile_options(-Wall -Wextra -O2 --std=gnu++20)
+add_compile_options(-Wall -Wextra -O2 --std=gnu++23)
 
 add_executable(SearchingAlgorithmsV2 main.cpp)
+add_executable(DataCreation statements/NSqPuzzle/DataCreation.cpp)
 # add_executable(SearchingAlgorithmsV2 main.cpp)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set_property(TARGET SearchingAlgorithmsV2 PROPERTY CXX_STANDARD 20)
+set_property(TARGET SearchingAlgorithmsV2 PROPERTY CXX_STANDARD 23)
+set_property(TARGET DataCreation PROPERTY CXX_STANDARD 23)
 
 include(CTest)
 enable_testing()

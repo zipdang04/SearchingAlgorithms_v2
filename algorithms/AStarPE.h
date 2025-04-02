@@ -35,6 +35,7 @@ class AStarPartialExpansion: public SearchingAlgorithm<State> {
 						StateInfo<State> oldNode(newState, oldF, oldG, h);
 						opening.erase(oldNode);
 						closed.erase(oldNode);
+						// newF = std::min(newF, oldF); might test for optimization
 					}
 					
 					f[newState] = newF; (this -> g)[newState] = newG; (this -> actionTrace)[newState] = action;

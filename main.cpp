@@ -7,6 +7,7 @@
 #include "algorithms/FocalSearch.h"
 #include "algorithms/ProbabilisticFocalSearch.h"
 #include "algorithms/AStarPE.h"
+#include "algorithms/PFS_PE.h"
 // const int SIZE = 4;
 Board _INIT("NOT_INIT");
 
@@ -27,10 +28,11 @@ int main(int argc, char**argv){
 	input();
 
 	Problem<Board> statement = Problem<Board>(Board(state), Board());
-	// algorithms.push_back(new AStar(statement));
+	algorithms.push_back(new AStar(statement));
 	algorithms.push_back(new AStarPartialExpansion(statement, 2));
 	algorithms.push_back(new FocalSearch(statement, 1.05));
 	algorithms.push_back(new ProbabilisticFocalSearch(statement, 1.05, 0.6));
+	algorithms.push_back(new ProbabilisticFocalSearch_PartialExpansion(statement, 1.05, 0.6, 2));
 	for (Algorithm *algorithm: algorithms) {
 		std::cerr << algorithm->getName() << std::endl;
 		std::cout << "start " << algorithm -> getName() << '\n';

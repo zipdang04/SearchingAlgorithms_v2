@@ -11,8 +11,8 @@ class SearchingAlgorithm: public Algorithm {
 		long long iteration = 0;
 	protected:
 		Problem<State> statement;
-		std::map<State, double> g;
-		std::map<State, std::string> actionTrace;
+		std::unordered_map<State, double> g;
+		std::unordered_map<State, std::string> actionTrace;
 
 		inline void FINISH_SEARCHING() { FINISHED = true; }
 		inline void NEW_ITERATION() {iteration++;}

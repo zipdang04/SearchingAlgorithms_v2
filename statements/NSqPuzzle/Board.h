@@ -185,7 +185,17 @@ bool Board::isSolved() {
 }
 
 bool Board::isSolvable() {
-	return true;
+	unsigned long long bit = 0;
+	int inversions = 0;
+	for (int i: board) {
+		inversions += int(!!i) * __builtin_popcount(bit >> i);
+		bit |= 1ull << i;
+	}
+	if (SIZE % 2 == 1)
+		return inversions % 2 == 0;
+	else
+		return (inversions + blankX) % 2 == 0;
+	// the board is reversed
 }
 
 template<>
