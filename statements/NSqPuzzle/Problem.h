@@ -5,6 +5,7 @@
 template<>
 double Problem<Board>::heuristic(Board board) {
 	return Heuristic::LinearConflictDistance(board);
+	// return Heuristic::ManhattanDistance(board);
 }
 template<>
 std::vector<Transition<Board>> Problem<Board>::getAdjacent(Board board) {

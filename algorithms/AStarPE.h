@@ -21,13 +21,11 @@ class AStarPartialExpansion: public SearchingAlgorithm<State> {
 					return;
 				}
 				this -> NEW_ITERATION();
-				// std::cerr << node.state.toString() << ' ' << node.f << ' ' << node.g << ' ' << node.h << '\n';
 
 				double minClosed = 1e100; bool isMinUpdated = false;
 				for (auto [action, newState, cost]: (this -> statement).getAdjacent(node.state)) {
 					double newG = (node.g) + cost, h = (this -> statement).heuristic(newState),
 						   newF = newG + h;
-					// std::cerr << "=> " << newState.toString() << ' ' << action << ' ' << cost << '|' << newF << ' ' << newG << ' '<< h << '\n';
 					
 					auto it = (this -> g).find(newState);
 					if (it != (this -> g).end()) {
@@ -37,7 +35,6 @@ class AStarPartialExpansion: public SearchingAlgorithm<State> {
 						StateInfo<State> oldNode(newState, oldF, oldG, h);
 						opening.erase(oldNode);
 						closed.erase(oldNode);
-						// newF = std::min(newF, oldF);
 					}
 					
 					f[newState] = newF; (this -> g)[newState] = newG; (this -> actionTrace)[newState] = action;

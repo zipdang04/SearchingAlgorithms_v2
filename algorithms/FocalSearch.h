@@ -22,10 +22,9 @@ class FocalSearch: public SearchingAlgorithm<State> {
 		std::set<StateInfo<State>, CompareF> openList;
 		std::set<StateInfo<State>, CompareH> focalList;
 
-		void updateFocal(double lastFMin) {
-			lastFMin = round(lastFMin * eps);
-			auto it = openList.lower_bound(StateInfo<State>(State(), 0, 0, 0));
-			while (it != openList.end() and it -> f <= lastFMin) {
+		void updateFocal(double oldBound, double newBound) {
+			auto it = openList.lower_bound(StateInfo<State>(State(), oldBound, 0, 0));
+			while (it != openList.end() and it -> f <= newBound) {
 				focalList.insert(*it); it++;
 			}
 		}
@@ -72,7 +71,12 @@ class FocalSearch: public SearchingAlgorithm<State> {
 						focalList.insert(newNode);
 				}
 
-				updateFocal(fMin);
+
+				if (not openList.empty()) {
+					int fHead = openList.begin() -> f;
+					if (fHead > fMin)
+						updateFocal(fMin * eps, fHead * eps);
+				}
 			}
 		}
 	public:

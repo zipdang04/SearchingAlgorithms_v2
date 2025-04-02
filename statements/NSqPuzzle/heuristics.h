@@ -17,6 +17,7 @@ namespace Heuristic {
 			return {index / Board::SIZE, index % Board::SIZE};
 		};
 		static const auto isConflicted = [](int num1, int num2, bool isRow, int designated) -> bool {
+			if (num1 == 0 or num2 == 0) return false;
 			auto [r1, c1] = getRowCol(num1);
 			auto [r2, c2] = getRowCol(num2);
 			return isRow ? (
