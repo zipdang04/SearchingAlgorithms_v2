@@ -33,11 +33,8 @@ class FocalSearch: public SearchingAlgorithm<State> {
 			State _start = (this -> statement).getSource();
 			const State DESTINATION = (this -> statement).getDestination();
 
-			std::unordered_map<State, double> *g = &(this -> g);
-			std::unordered_map<State, std::string> *actionTrace = &(this -> actionTrace);
-
-			(*g)[_start] = 0; 
-			(*actionTrace)[_start] = "";
+			(this -> g)[_start] = 0; 
+			(this -> actionTrace)[_start] = "";
 			double initH = (this -> statement).heuristic(_start);
 			openList.emplace(_start, initH, 0, initH);
 			focalList.emplace(_start, initH, 0, initH);
@@ -51,13 +48,14 @@ class FocalSearch: public SearchingAlgorithm<State> {
 					this -> FINISH_SEARCHING();
 					return;
 				}
+				this -> NEW_ITERATION();
 				
 				for (auto [action, newState, cost]: (this -> statement).getAdjacent(node.state)) {
 					double newG = node.g + cost, h = (this -> statement).heuristic(newState);
 					double newF = newG + h;
 
-					auto itG = g -> find(newState);
-					if (itG != g -> end()) {
+					auto itG = (this -> g).find(newState);
+					if (itG != (this -> g).end()) {
 						double oldG = itG -> second;
 						if (oldG <= newG) continue;
 
@@ -65,8 +63,8 @@ class FocalSearch: public SearchingAlgorithm<State> {
 						focalList.erase(StateInfo<State>(newState, oldG + h, oldG, h));
 					}
 
-					(*g)[newState] = newG;
-					(*actionTrace)[newState] = action;
+					(this -> g)[newState] = newG;
+					(this -> actionTrace)[newState] = action;
 
 					StateInfo<State> newNode(newState, newF, newG, h);
 					openList.insert(newNode);

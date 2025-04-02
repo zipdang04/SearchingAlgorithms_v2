@@ -8,18 +8,21 @@ template<class State>
 class SearchingAlgorithm: public Algorithm {
 	private:
 		bool FINISHED = false;
+		long long iteration = 0;
 	protected:
 		Problem<State> statement;
-		std::unordered_map<State, double> g;
-		std::unordered_map<State, std::string> actionTrace;
+		std::map<State, double> g;
+		std::map<State, std::string> actionTrace;
 
-		void FINISH_SEARCHING() { FINISHED = true; }
+		inline void FINISH_SEARCHING() { FINISHED = true; }
+		inline void NEW_ITERATION() {iteration++;}
 		
 	public:
 		SearchingAlgorithm(Problem<State> statement): statement(statement) {}
 		
 		virtual std::vector<std::string> getTrace() { throw NotImplementedException("no trace function found"); }
 		long long getExpandedCount() { return g.size(); }
+		long long getIterationCount() { return iteration; }
 };
 
 template<class State>

@@ -12,8 +12,8 @@ class AStar: public SearchingAlgorithm<State> {
 			State _start = (this -> statement).getSource();
 			const State DESTINATION = (this -> statement).getDestination();
 			
-			std::unordered_map<State, double> *g = &(this -> g);
-			std::unordered_map<State, std::string> *actionTrace = &(this -> actionTrace);
+			std::map<State, double> *g = &(this -> g);
+			std::map<State, std::string> *actionTrace = &(this -> actionTrace);
 			
 			(*g)[_start] = 0; 
 			(*actionTrace)[_start] = "";
@@ -23,28 +23,23 @@ class AStar: public SearchingAlgorithm<State> {
 			while (not pq.empty()) {
 				StateInfo<State> currentInfo = pq.top(); pq.pop();
 				if (currentInfo.g != (*g)[currentInfo.state]) continue;
-				// std::cerr << currentInfo.state.X() << ' ' << currentInfo.state.Y() << '|';
-				// std::cerr << currentInfo.state.toString() << ' ' << currentInfo.f << ' ' << currentInfo.g << '|' << (*actionTrace)[currentInfo.state] << '\n';
 				if (currentInfo.state.isSolved()) {
 					this -> FINISH_SEARCHING();
 					break;
 				}
+				this -> NEW_ITERATION();
 
 				for (auto [action, newState, cost]: (this -> statement).getAdjacent(currentInfo.state)) {
+					double newG = currentInfo.g + cost, h = (this -> statement).heuristic(newState);
+					double newF = newG + h;
+
 					auto it = g -> find(newState);
-					if (it != g -> end() and it -> second <= currentInfo.g)	// currently better
+					if (it != g -> end() and it -> second <= newG)	// currently better
 						continue;
 
-					double newH = (this -> statement).heuristic(newState);
-					double newG = currentInfo.g + cost;
 					(*g)[newState] = newG;
 					(*actionTrace)[newState] = action;
-					pq.emplace(newState, newG + newH, newG, newH);
-
-					// if (newState == DESTINATION) {
-					// 	this -> FINISH_SEARCHING();
-					// 	return;
-					// }
+					pq.emplace(newState, newF, newG, h);
 				}
 			}
 		}

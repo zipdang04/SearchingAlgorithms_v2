@@ -12,7 +12,7 @@ class Dijkstra: public SearchingAlgorithm<State> {
 			State _start = (this -> statement).getSource();
 			const State DESTINATION = (this -> statement).getDestination();
 			
-			std::unordered_map<State, int> *g = &(this -> g);
+			std::unordered_map<State, double> *g = &(this -> g);
 			std::unordered_map<State, std::string> *actionTrace = &(this -> actionTrace);
 			
 			(*g)[_start] = 0; 
@@ -26,15 +26,14 @@ class Dijkstra: public SearchingAlgorithm<State> {
 					this -> FINISH_SEARCHING();
 					break;
 				}
-				std::cerr << currentInfo.state.X() << ' ' << currentInfo.state.Y() << '|';
-				std::cerr << currentInfo.state.toString() << ' ' << currentInfo.f << ' ' << currentInfo.g << '|' << (*actionTrace)[currentInfo.state] << '\n';
+				this -> NEW_ITERATION();
 
-				for (auto [action, newState]: (this -> statement).getAdjacent(currentInfo.state)) {
+				for (auto [action, newState, cost]: (this -> statement).getAdjacent(currentInfo.state)) {
 					auto it = g -> find(newState);
 					if (it != g -> end() and it -> second <= currentInfo.g)	// currently better
 						continue;
 
-					int newG = currentInfo.g + 1;
+					double newG = currentInfo.g + cost;
 					(*g)[newState] = newG;
 					(*actionTrace)[newState] = action;
 					pq.emplace(newState, newG, newG, 0);
