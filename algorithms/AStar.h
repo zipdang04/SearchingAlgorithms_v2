@@ -30,13 +30,13 @@ class AStar: public SearchingAlgorithm<State> {
 					break;
 				}
 
-				for (auto [action, newState]: (this -> statement).getAdjacent(currentInfo.state)) {
+				for (auto [action, newState, cost]: (this -> statement).getAdjacent(currentInfo.state)) {
 					auto it = g -> find(newState);
 					if (it != g -> end() and it -> second <= currentInfo.g)	// currently better
 						continue;
 
 					double newH = (this -> statement).heuristic(newState);
-					double newG = currentInfo.g + 1;
+					double newG = currentInfo.g + cost;
 					(*g)[newState] = newG;
 					(*actionTrace)[newState] = action;
 					pq.emplace(newState, newG + newH, newG, newH);

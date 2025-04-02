@@ -7,12 +7,12 @@ double Problem<Board>::heuristic(Board board) {
 	return Heuristic::ManhattanDistance(board);
 }
 template<>
-std::vector<std::pair<std::string, Board>> Problem<Board>::getAdjacent(Board board) {
+std::vector<Transition<Board>> Problem<Board>::getAdjacent(Board board) {
 	std::vector<BoardMove> validMoves = BoardMove::ALL();
-	std::vector<std::pair<std::string, Board>> v;
+	std::vector<Transition<Board>> v;
 	for (BoardMove move: validMoves) {
 		try {
-			v.emplace_back(move.c, board.move(move));
+			v.emplace_back(move.c, board.move(move), 1);
 		} catch (InvalidMoveException ex) {}
 	}
 	return v;

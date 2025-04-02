@@ -52,8 +52,8 @@ class FocalSearch: public SearchingAlgorithm<State> {
 					return;
 				}
 				
-				for (auto [action, newState]: (this -> statement).getAdjacent(node.state)) {
-					double newG = node.g + 1, h = (this -> statement).heuristic(newState);
+				for (auto [action, newState, cost]: (this -> statement).getAdjacent(node.state)) {
+					double newG = node.g + cost, h = (this -> statement).heuristic(newState);
 					double newF = newG + h;
 
 					auto itG = g -> find(newState);

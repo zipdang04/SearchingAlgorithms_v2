@@ -80,7 +80,7 @@ template<>
 inline double Problem<Board>::heuristic(Board);
 
 template<>
-std::vector<std::pair<std::string, Board>> Problem<Board>::getAdjacent(Board);
+std::vector<Transition<Board>> Problem<Board>::getAdjacent(Board);
 
 //========================================================================================================================================================================
 

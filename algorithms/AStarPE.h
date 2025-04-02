@@ -18,7 +18,16 @@ class AStarPartialExpansion: public SearchingAlgorithm<State> {
 			opening.emplace(_start, initH, 0, initH);
 
 			while (not opening.empty()) {
-				
+				auto _it = opening.begin(); opening.erase(_it);
+				if (_it -> state == DESTINATION) {
+					this -> FINISH_SEARCHING();
+					return;
+				}
+
+				double minClosed = 1e100;
+				for (auto [action, newBoard, cost]: (this -> statement).getAdjacent(_it -> state)) {
+					
+				}
 			}
 		}
 

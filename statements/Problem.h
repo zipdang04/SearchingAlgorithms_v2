@@ -3,6 +3,12 @@
 #include "../base/exceptions.h"
 
 template<typename State>
+struct Transition {
+	std::string action;
+	State state;
+	double cost;
+};
+template<typename State>
 class Problem {
 	protected:
 		State SOURCE, DESTINATION;
@@ -17,7 +23,7 @@ class Problem {
 		virtual double heuristic(State state) {
 			throw NotImplementedException("no heuristics implemented");
 		}
-		virtual std::vector<std::pair<std::string, State>> getAdjacent(State state) {
+		virtual std::vector<Transition<State>> getAdjacent(State state) {
 			throw NotImplementedException("no adjacent-finding functions implemented");
 		}
 };
