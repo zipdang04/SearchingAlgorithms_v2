@@ -17,4 +17,4 @@ inline Point operator * (Point a, long long b) { return {a.x * b, a.y * b}; }
 inline Point operator * (long long b, Point a) { return {a.x * b, a.y * b}; }
 inline long long Point::selfDot() { return x*x + y*y; }
 inline double Point::abs() { return sqrt(selfDot()); }
-inline double Point::dist(Point a, Point b) { return (a-b).abs(); }
+inline double Point::dist(Point a, Point b) { return (b-a).abs(); }
