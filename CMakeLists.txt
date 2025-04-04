@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10.0)
 project(SearchingAlgorithmsV2 VERSION 0.1.0 LANGUAGES C CXX)
 add_compile_options(-Wall -Wextra -O2 --std=gnu++23)
 
+include_directories(${CMAKE_SOURCE_DIR}/testlib)
+
 add_executable(SearchingAlgorithmsV2 exec/NSqPuzzle.cpp)
 add_executable(DataCreation statements/NSqPuzzle/DataCreation.cpp)
 # add_executable(SearchingAlgorithmsV2 main.cpp)
