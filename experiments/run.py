@@ -45,4 +45,4 @@ for ctrl in TEST_SETTINGS:
 		except subprocess.TimeoutExpired:
 			print("ctrl = {} | test {} is too hard ({})".format(ctrl, i + 1, inputFile), file=sys.stderr)
 		if len(tmp) > 0:
-			print(name, *tmp, file=sys.stderr)
+			print(inputFile, *tmp, file=sys.stderr)
