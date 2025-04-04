@@ -1,7 +1,7 @@
 #pragma once
 
+#include <bits/stdc++.h>
 #include "../Problem.h"
-
 class BoardMove {
 	private:
 		BoardMove(std::string c, int diffX, int diffY): c(c), diffX(diffX), diffY(diffY) {}
@@ -66,7 +66,7 @@ class InvalidMoveException: public Exception {
 	Board board;
 	public:
 		InvalidMoveException(Board board, BoardMove move): Exception(PREFIX, "") {
-			message = std::format("Tried to move {} at board {}", move.c, board.toString());
+			message = "Tried to move " + move.c + " at board " + board.toString();
 		}
 };
 class InvalidBoardException: public Exception {

@@ -1,10 +1,13 @@
 
 #include "testlib.h"
 #include <bits/stdc++.h>
+#include <fmt/core.h>
+#include <fmt/chrono.h>
 #include "Problem.h"
 std::string getTimeCode() {
 	auto curTime = std::chrono::current_zone() -> to_local(std::chrono::high_resolution_clock::now());
-	return std::format("{:%Y%m%d-%H%M%S}", curTime);
+	// auto tmp = fmt::format("{:%F}", curTime);
+	return fmt::format("{:%Y%m%d-%H%M%S}", curTime);
 }
 
 main(int argc, char** argv) {
@@ -15,9 +18,9 @@ main(int argc, char** argv) {
 	int shuffle_steps = opt<int>("ctrl", 0);
 	
 	
-	std::string prefix = std::format("NSQ-n{}", SZ_N);
-	if (shuffle_steps > 0) prefix += std::format("-ctrl{}", shuffle_steps);
-	std::string filename = prefix + std::format("_{}.inp", getTimeCode());
+	std::string prefix = fmt::format("NSQ-n{}", SZ_N);
+	if (shuffle_steps > 0) prefix += fmt::format("-ctrl{}", shuffle_steps);
+	std::string filename = prefix + fmt::format("_{}.inp", getTimeCode());
 	std::cerr << "filename: " << filename << std::endl;
 	std::ofstream ofs(filename);
 	

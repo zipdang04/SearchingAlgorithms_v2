@@ -1,5 +1,6 @@
 #include "SearchingAlgorithm.h"
 #include "testlib.h"
+#include <fmt/core.h>
 
 template<class State>
 class ProbabilisticFocalSearch: public SearchingAlgorithm<State> {
@@ -83,6 +84,6 @@ class ProbabilisticFocalSearch: public SearchingAlgorithm<State> {
 	public:
 		double eps, probFocal;
 		ProbabilisticFocalSearch(Problem<State> statement, double eps, double probFocal): SearchingAlgorithm<State>(statement), eps(eps), probFocal(probFocal) {
-			this -> algoName = std::format("Probabilistic Focal Search with eps = {}; pFocal = {}", eps, probFocal);
+			this -> algoName = fmt::format("Probabilistic Focal Search with eps = {}; pFocal = {}", eps, probFocal);
 		}
 };

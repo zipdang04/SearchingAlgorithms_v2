@@ -1,6 +1,7 @@
 #pragma once
 #include <bits/stdc++.h>
 #include "SearchingAlgorithm.h"
+#include <fmt/core.h>
 template<class State>
 class ProbabilisticFocalSearch_PartialExpansion: public SearchingAlgorithm<State> {
 	private:
@@ -107,6 +108,6 @@ class ProbabilisticFocalSearch_PartialExpansion: public SearchingAlgorithm<State
 		ProbabilisticFocalSearch_PartialExpansion(Problem<State> statement, double eps, double probFocal, double cBound): 
 			SearchingAlgorithm<State>(statement), eps(eps), probFocal(probFocal), cBound(cBound) 
 		{
-			this -> algoName = std::format("Probabilistic Focal Search with eps = {}; pFocal = {}, cBound = {}", eps, probFocal, cBound);
+			this -> algoName = fmt::format("Probabilistic Focal Search with eps = {}; pFocal = {}, cBound = {}", eps, probFocal, cBound);
 		}
 };

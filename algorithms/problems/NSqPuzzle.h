@@ -2,7 +2,7 @@
 
 #include "../SearchingAlgorithm.h"
 #include "../../statements/Problem.h"
-
+#include <fmt/core.h>
 template<>
 std::vector<std::string> SearchingAlgorithm<Board>::getTrace() {
 	if (not FINISHED) return {};
@@ -18,7 +18,7 @@ std::vector<std::string> SearchingAlgorithm<Board>::getTrace() {
 		else if (action == "R") board = board.move(BoardMove::GET_L());
 		else if (action == "U") board = board.move(BoardMove::GET_D());
 		else if (action == "D") board = board.move(BoardMove::GET_U());
-		else throw InvalidTraceException(std::format("There is an invalid move ({}) when tracing from {}", action, board.toString()));
+		else throw InvalidTraceException(fmt::format("There is an invalid move ({}) when tracing from {}", action, board.toString()));
 	}
 
 	std::reverse(actions.begin(), actions.end());
