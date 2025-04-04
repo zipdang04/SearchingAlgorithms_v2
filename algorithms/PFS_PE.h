@@ -6,7 +6,7 @@ template<class State>
 class ProbabilisticFocalSearch_PartialExpansion: public SearchingAlgorithm<State> {
 	private:
 		struct CompareF {
-			static bool operator() (StateInfo<State> a, StateInfo<State> b) {
+			bool operator() (StateInfo<State> a, StateInfo<State> b) {
 				if (a.f != b.f) return a.f < b.f;
 				if (a.g != b.g) return a.g < b.g;
 				if (a.h != b.h) return a.h < b.h;
@@ -14,7 +14,7 @@ class ProbabilisticFocalSearch_PartialExpansion: public SearchingAlgorithm<State
 			}
 		};
 		struct CompareH {
-			static bool operator() (StateInfo<State> a, StateInfo<State> b) {
+			bool operator() (StateInfo<State> a, StateInfo<State> b) {
 				if (a.h != b.h) return a.h < b.h;
 				if (a.g != b.g) return a.g < b.g;
 				if (a.f != b.f) return a.f < b.f;
