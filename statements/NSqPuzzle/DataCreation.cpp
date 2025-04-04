@@ -5,7 +5,7 @@
 #include <fmt/chrono.h>
 #include "Problem.h"
 std::string getTimeCode() {
-	auto curTime = std::chrono::current_zone() -> to_local(std::chrono::high_resolution_clock::now());
+	auto curTime = std::chrono::high_resolution_clock::now() += std::chrono::hours(7);
 	// auto tmp = fmt::format("{:%F}", curTime);
 	return fmt::format("{:%Y%m%d-%H%M%S}", curTime);
 }
