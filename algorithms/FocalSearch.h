@@ -4,7 +4,7 @@ template<class State>
 class FocalSearch: public SearchingAlgorithm<State> {
 	private:
 		struct CompareF {
-			bool operator() (StateInfo<State> a, StateInfo<State> b) {
+			bool operator() (StateInfo<State> a, StateInfo<State> b) const {
 				if (a.f != b.f) return a.f < b.f;
 				if (a.g != b.g) return a.g < b.g;
 				if (a.h != b.h) return a.h < b.h;
@@ -12,7 +12,7 @@ class FocalSearch: public SearchingAlgorithm<State> {
 			}
 		};
 		struct CompareH {
-			bool operator() (StateInfo<State> a, StateInfo<State> b) {
+			bool operator() (StateInfo<State> a, StateInfo<State> b) const {
 				if (a.h != b.h) return a.h < b.h;
 				if (a.g != b.g) return a.g < b.g;
 				if (a.f != b.f) return a.f < b.f;
