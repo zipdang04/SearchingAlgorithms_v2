@@ -154,8 +154,9 @@ bool Board::operator != (Board board) const {
 
 void Board::_selfMove(BoardMove move) {
 	auto [newX, newY] = move.from(blankX, blankY);
+	Board inCaseThisWasInvestigated = *this;
 	if (newX < 0 or newY < 0 or newX >= SIZE or newY >= SIZE)
-		throw InvalidMoveException(*this, move);
+		throw InvalidMoveException(inCaseThisWasInvestigated, move);
 	
 	std::swap(board[getIndex(blankX, blankY)], board[getIndex(newX, newY)]);
 	blankX = newX, blankY = newY;
