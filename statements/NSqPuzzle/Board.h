@@ -63,7 +63,6 @@ class Board {
 
 class InvalidMoveException: public Exception {
 	inline static const std::string PREFIX = "InvalidMoveException";
-	Board board;
 	public:
 		InvalidMoveException(Board board, BoardMove move): Exception(PREFIX, "") {
 			message = "Tried to move " + move.c + " at board " + board.toString();
