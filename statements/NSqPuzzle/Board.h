@@ -62,7 +62,7 @@ class Board {
 };
 
 class InvalidMoveException: public Exception {
-	const std::string PREFIX = "InvalidMoveException";
+	inline static const std::string PREFIX = "InvalidMoveException";
 	Board board;
 	public:
 		InvalidMoveException(Board board, BoardMove move): Exception(PREFIX, "") {
@@ -70,7 +70,7 @@ class InvalidMoveException: public Exception {
 		}
 };
 class InvalidBoardException: public Exception {
-	const std::string PREFIX = "InvalidMoveException";
+	inline static const std::string PREFIX = "InvalidMoveException";
 	public:
 		InvalidBoardException(std::string message): Exception(PREFIX, message) {}
 };

@@ -43,7 +43,7 @@ struct StateInfo {
 };
 
 class InvalidTraceException: public Exception {
-	const std::string PREFIX = "InvalidTraceException";
+	inline static const std::string PREFIX = "InvalidTraceException";
 	public:
 		InvalidTraceException(std::string message): Exception(PREFIX, message) {}
 };

@@ -17,7 +17,7 @@ class Exception: public std::exception {
 };
 
 class NotImplementedException: public Exception {
-	const std::string PREFIX = "NotImplementedException";
+	inline static const std::string PREFIX = "NotImplementedException";
 	public:
 		NotImplementedException(std::string message): Exception(PREFIX, message) {}
 };
