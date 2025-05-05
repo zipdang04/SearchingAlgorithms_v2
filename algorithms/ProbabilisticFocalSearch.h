@@ -41,6 +41,8 @@ class ProbabilisticFocalSearch: public SearchingAlgorithm<State> {
 			focalList.emplace(_start, initH, 0, initH);
 
 			while (not openList.empty()) {
+				this -> UPDATE_SIZE(openList.size() + focalList.size());
+
 				double fMin = openList.begin() -> f;
 				StateInfo<State> node = focalList.empty() ? *openList.begin() : (
 					(rnd.next(1.0) < probFocal) ? *focalList.begin() : *openList.begin()

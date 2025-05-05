@@ -39,6 +39,8 @@ class FocalSearch: public SearchingAlgorithm<State> {
 			focalList.emplace(_start, initH, 0, initH);
 
 			while (not openList.empty()) {
+				this -> UPDATE_SIZE(openList.size() + focalList.size());
+
 				double fMin = openList.begin() -> f;
 				
 				StateInfo<State> node = (not focalList.empty()) ? *focalList.begin() : *openList.begin();
