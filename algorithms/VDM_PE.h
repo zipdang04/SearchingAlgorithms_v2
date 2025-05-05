@@ -1,3 +1,8 @@
+/*
+ * pop node U -> process and push node (V1, V2, V3, ...) (V1 < V2 < V3 < ...)
+ * pop node (U1, ...) -> push node (...) + process node U1 ( -> Vs )
+ */
+
 #pragma once
 #include <bits/stdc++.h>
 #include "SearchingAlgorithm.h"
@@ -65,7 +70,6 @@ class VDM_PE: public SearchingAlgorithm<State> {
 				this -> NEW_ITERATION();
 				
 				std::vector<StateInfo<State>> all;
-				double minClosed = 1e100; bool isMinUpdated = false;
 				for (auto [action, newState, cost]: (this -> statement).getAdjacent(node.state)) {
 					double newG = (node.g) + cost, h = (this -> statement).heuristic(newState),
 						   newF = newG + h;
