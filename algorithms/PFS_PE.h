@@ -108,6 +108,6 @@ class ProbabilisticFocalSearch_PartialExpansion: public SearchingAlgorithm<State
 		ProbabilisticFocalSearch_PartialExpansion(Problem<State> statement, double eps, double probFocal, double cBound): 
 			SearchingAlgorithm<State>(statement), eps(eps), probFocal(probFocal), cBound(cBound) 
 		{
-			this -> algoName = fmt::format("Probabilistic Focal Search with eps = {}; pFocal = {}, cBound = {}", eps, probFocal, cBound);
+			this -> algoName = fmt::format("PFS_PE with eps = {}; pFocal = {}, cBound = {}", eps, probFocal, cBound);
 		}
 };

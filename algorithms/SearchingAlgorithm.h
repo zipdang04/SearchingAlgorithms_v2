@@ -9,6 +9,7 @@ class SearchingAlgorithm: public Algorithm {
 	private:
 		bool FINISHED = false;
 		long long iteration = 0;
+		long long maxSize = 0;
 	protected:
 		Problem<State> statement;
 		std::unordered_map<State, double> g;
@@ -16,6 +17,10 @@ class SearchingAlgorithm: public Algorithm {
 
 		inline void FINISH_SEARCHING() { FINISHED = true; }
 		inline void NEW_ITERATION() {iteration++;}
+		inline void UPDATE_SIZE(long long size) {
+			if (size > this -> maxSize)
+				this -> maxSize = size;
+		}
 		
 	public:
 		SearchingAlgorithm(Problem<State> statement): statement(statement) {}
@@ -23,6 +28,7 @@ class SearchingAlgorithm: public Algorithm {
 		virtual std::vector<std::string> getTrace() { throw NotImplementedException("no trace function found"); }
 		long long getExpandedCount() { return g.size(); }
 		long long getIterationCount() { return iteration; }
+		long long getMaxSize() { return maxSize; }
 };
 
 template<class State>
@@ -39,6 +45,12 @@ struct StateInfo {
 		return (f != a.f) ? (f > a.f) : (
 			(g != a.g) ? (g > a.g) : (state > a.state)
 		);
+	}
+	bool operator == (StateInfo a) const {
+		return state == a.state
+			&& f == a.f
+			&& g == a.g
+			&& h == a.h;
 	}
 };
 
