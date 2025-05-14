@@ -1,5 +1,6 @@
 import os, sys, subprocess
-
+import datetime
+datetime.datetime.now().timestamp()
 TEST_SETTINGS = {
 	50: 100,
 	60: 100,
@@ -20,7 +21,7 @@ def makeTest(ctrl: int) -> str:
 	process = subprocess.run(command, capture_output=True)
 	return process.stderr.decode().split()[1]
 
-sys.stdout = open("statistics.csv", "+a")
+sys.stdout = open("statistics"+str(int(datetime.datetime.now().timestamp() * 1000000))+".csv", "w")
 columns = ["n", "ctrl", "filename", "algo_name", "expanded_nodes", "iteration_count", "max_size", "time", "count_steps", "steps"]
 print(*columns, sep="\t")
 for ctrl in TEST_SETTINGS:
