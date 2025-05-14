@@ -81,7 +81,7 @@ class ProbabilisticFocalSearch_PartialExpansion: public SearchingAlgorithm<State
 
 					if (newF <= node.f + cBound) {
 						openList.insert(newNode);
-						if (newNode.f <= round(fMin * eps)) 
+						if (newNode.f <= fMin * eps) 
 							focalList.insert(newNode);
 					} else {
 						minClosed = std::min(minClosed, newF),
@@ -94,7 +94,7 @@ class ProbabilisticFocalSearch_PartialExpansion: public SearchingAlgorithm<State
 				else if (minClosed < node.f) {
 					node.f = f[node.state] = minClosed;
 					openList.insert(node);
-					if (node.f  <= round(fMin * eps))
+					if (node.f  <= fMin * eps)
 						focalList.insert(node);
 				}
 

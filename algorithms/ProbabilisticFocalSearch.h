@@ -72,7 +72,7 @@ class ProbabilisticFocalSearch: public SearchingAlgorithm<State> {
 
 					StateInfo<State> newNode(newState, newF, newG, h);
 					openList.insert(newNode);
-					if (newNode.f <= round(fMin * eps)) 
+					if (newNode.f <= fMin * eps) 
 						focalList.insert(newNode);
 				}
 

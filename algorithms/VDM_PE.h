@@ -8,35 +8,6 @@
 #include "SearchingAlgorithm.h"
 #include <fmt/core.h>
 
-template <class State>
-class BigInfo: public StateInfo<State> {
-	std::queue<StateInfo<State>> unexpanded;
-	public:
-		BigInfo(State state, double f, double g, double h): StateInfo<State>(state, f, g, h) {}
-		BigInfo(StateInfo<State> info): StateInfo<State>(info.state, info.f, info.g, info.h) {}
-		BigInfo(std::vector<StateInfo<State>> states): StateInfo<State>(State(), 0, 0, 0)  {
-			ensuref(not states.empty(), "list of states are empty");
-			std::sort(states.begin(), states.end());
-
-			auto it = states.begin();
-			this -> state = it -> state;
-			this -> f = it -> f;
-			this -> g = it -> g;
-			this -> h = it -> h;
-
-			for (auto it = states.begin() + 1; it < states.end(); it++)
-				unexpanded.push(*it);
-		}
-		bool pop_able(){return not unexpanded.empty();}
-		void pop() {
-			StateInfo<State> newInfo = unexpanded.front(); unexpanded.pop();
-			this -> state = newInfo.state;
-			this -> f = newInfo.f;
-			this -> g = newInfo.g;
-			this -> h = newInfo.h;
-		}
-};
-
 template<class State>
 class VDM_PE: public SearchingAlgorithm<State> {
 	private:
@@ -92,7 +63,6 @@ class VDM_PE: public SearchingAlgorithm<State> {
 			}
 		}
 	public:
-		double eps;
 		VDM_PE(Problem<State> statement): SearchingAlgorithm<State>(statement) {
 			this -> algoName = fmt::format("VDM's PE");
 		}
