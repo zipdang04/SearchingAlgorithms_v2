@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../base/algorithm.h"
-#include "../statements/NSqPuzzle/Problem.h"
+#include "../statements/Problem.h"
 #include "../base/exceptions.h"
 
 template<class State>
@@ -29,6 +29,7 @@ class SearchingAlgorithm: public Algorithm {
 		long long getExpandedCount() { return g.size(); }
 		long long getIterationCount() { return iteration; }
 		long long getMaxSize() { return maxSize; }
+		double getAnswer() { return g[statement.getDestination()]; }
 };
 
 template<class State>

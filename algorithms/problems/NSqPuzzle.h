@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../SearchingAlgorithm.h"
-#include "../../statements/Problem.h"
+#include "../../statements/NSqPuzzle/Problem.h"
 #include <fmt/core.h>
 template<>
 std::vector<std::string> SearchingAlgorithm<Board>::getTrace() {
