@@ -10,12 +10,16 @@ class SearchingAlgorithm: public Algorithm {
 		bool FINISHED = false;
 		long long iteration = 0;
 		long long maxSize = 0;
+		double answer = 0;
 	protected:
 		Problem<State> statement;
 		std::unordered_map<State, double> g;
 		std::unordered_map<State, std::string> actionTrace;
 
-		inline void FINISH_SEARCHING() { FINISHED = true; }
+		inline void FINISH_SEARCHING(double answer) { 
+			this -> answer = answer;
+			FINISHED = true; 
+		}
 		inline void NEW_ITERATION() {iteration++;}
 		inline void UPDATE_SIZE(long long size) {
 			if (size > this -> maxSize)

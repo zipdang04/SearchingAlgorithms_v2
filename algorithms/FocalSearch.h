@@ -45,7 +45,7 @@ class FocalSearch: public SearchingAlgorithm<State> {
 				
 				StateInfo<State> node = (not focalList.empty()) ? *focalList.begin() : *openList.begin();
 				focalList.erase(node); openList.erase(node);
-				if (node.state == DESTINATION) {
+				if (node.state.isSolved()) {
 					this -> FINISH_SEARCHING();
 					return;
 				}

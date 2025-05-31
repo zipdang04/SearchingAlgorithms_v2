@@ -51,7 +51,7 @@ class ProbabilisticFocalSearch_PartialExpansion: public SearchingAlgorithm<State
 					(rnd.next(1.0) < probFocal) ? *focalList.begin() : *openList.begin()
 				);
 				focalList.erase(node); openList.erase(node);
-				if (node.state == DESTINATION) {
+				if (node.state.isSolved()) {
 					this -> FINISH_SEARCHING();
 					return;
 				}

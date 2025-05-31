@@ -92,7 +92,7 @@ class PFS_VDMPE: public SearchingAlgorithm<State> {
 				focalList.erase(bigNode); openList.erase(bigNode);
 				
 				StateInfo<State> node = process(bigNode);
-				if (node.state == DESTINATION) {
+				if (node.state.isSolved()) {
 					this -> FINISH_SEARCHING();
 					return;
 				}
