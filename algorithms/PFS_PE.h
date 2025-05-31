@@ -34,7 +34,6 @@ class ProbabilisticFocalSearch_PartialExpansion: public SearchingAlgorithm<State
 		}
 		void execute() override {
 			State _start = (this -> statement).getSource();
-			const State DESTINATION = (this -> statement).getDestination();
 
 			double initH = (this -> statement).heuristic(_start);
 			(this -> g)[_start] = 0; 

@@ -32,7 +32,6 @@ class ProbabilisticFocalSearch: public SearchingAlgorithm<State> {
 		}
 		void execute() override {
 			State _start = (this -> statement).getSource();
-			const State DESTINATION = (this -> statement).getDestination();
 
 			(this -> g)[_start] = 0; 
 			(this -> actionTrace)[_start] = "";

@@ -10,7 +10,6 @@ class Dijkstra: public SearchingAlgorithm<State> {
 	
 		void execute() override {
 			State _start = (this -> statement).getSource();
-			const State DESTINATION = (this -> statement).getDestination();
 			
 			std::unordered_map<State, double> *g = &(this -> g);
 			std::unordered_map<State, std::string> *actionTrace = &(this -> actionTrace);
