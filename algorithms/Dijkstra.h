@@ -22,7 +22,7 @@ class Dijkstra: public SearchingAlgorithm<State> {
 				StateInfo<State> currentInfo = pq.top(); pq.pop();
 				if (currentInfo.g != (*g)[currentInfo.state]) continue;
 				if (currentInfo.state.isSolved()) {
-					this -> FINISH_SEARCHING();
+					this -> FINISH_SEARCHING(currentInfo.state);
 					break;
 				}
 				this -> NEW_ITERATION();

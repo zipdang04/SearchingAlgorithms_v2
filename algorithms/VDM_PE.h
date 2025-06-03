@@ -32,7 +32,7 @@ class VDM_PE: public SearchingAlgorithm<State> {
 				}
 
 				if (node.state.isSolved()) {
-					this -> FINISH_SEARCHING();
+					this -> FINISH_SEARCHING(node.state);
 					return;
 				}
 				if (node.g != (this -> g)[node.state]) 

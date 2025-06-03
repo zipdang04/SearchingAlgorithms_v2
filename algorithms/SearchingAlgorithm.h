@@ -10,14 +10,15 @@ class SearchingAlgorithm: public Algorithm {
 		bool FINISHED = false;
 		long long iteration = 0;
 		long long maxSize = 0;
-		double answer = 0;
+		double answer = 0; State ansState;
 	protected:
 		Problem<State> statement;
 		std::unordered_map<State, double> g;
 		std::unordered_map<State, std::string> actionTrace;
 
-		inline void FINISH_SEARCHING(double answer) { 
-			this -> answer = answer;
+		inline void FINISH_SEARCHING(State ansState) { 
+			this -> ansState = ansState;
+			this -> answer = (this -> g)[ansState];
 			FINISHED = true; 
 		}
 		inline void NEW_ITERATION() {iteration++;}
@@ -33,7 +34,8 @@ class SearchingAlgorithm: public Algorithm {
 		long long getExpandedCount() { return g.size(); }
 		long long getIterationCount() { return iteration; }
 		long long getMaxSize() { return maxSize; }
-		double getAnswer() { return g[statement.getDestination()]; }
+		double getAnsState() { return ansState; }
+		double getAnswer() { return answer; }
 };
 
 template<class State>

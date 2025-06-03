@@ -17,7 +17,7 @@ class AStarPartialExpansion: public SearchingAlgorithm<State> {
 				this -> UPDATE_SIZE(opening.size() + closed.size());
 				StateInfo<State> node = *opening.begin(); opening.erase(node); 
 				if (node.state.isSolved()) {
-					this -> FINISH_SEARCHING();
+					this -> FINISH_SEARCHING(node.state);
 					return;
 				}
 				this -> NEW_ITERATION();

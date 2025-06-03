@@ -10,7 +10,6 @@ class AStar: public SearchingAlgorithm<State> {
 	
 		void execute() override {
 			State _start = (this -> statement).getSource();
-			
 			(this -> g)[_start] = 0; 
 			(this -> actionTrace)[_start] = "";
 			double initH = (this -> statement).heuristic(_start);
@@ -20,7 +19,7 @@ class AStar: public SearchingAlgorithm<State> {
 				StateInfo<State> currentInfo = pq.top(); pq.pop();
 				if (currentInfo.g != (this -> g)[currentInfo.state]) continue;
 				if (currentInfo.state.isSolved()) {
-					this -> FINISH_SEARCHING();
+					this -> FINISH_SEARCHING(currentInfo.state);
 					break;
 				}
 				this -> NEW_ITERATION();
@@ -28,11 +27,11 @@ class AStar: public SearchingAlgorithm<State> {
 				for (auto [action, newState, cost]: (this -> statement).getAdjacent(currentInfo.state)) {
 					double newG = currentInfo.g + cost, h = (this -> statement).heuristic(newState);
 					double newF = newG + h;
-
+					
 					auto it = (this -> g).find(newState);
 					if (it != (this -> g).end() and it -> second <= newG)	// currently better
 						continue;
-
+					
 					(this -> g)[newState] = newG;
 					(this -> actionTrace)[newState] = action;
 					pq.emplace(newState, newF, newG, h);
