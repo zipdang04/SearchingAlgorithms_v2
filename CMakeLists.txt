@@ -19,12 +19,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set_property(TARGET SearchingAlgorithmsV2 PROPERTY CXX_STANDARD 23)
 set_property(TARGET DataCreation PROPERTY CXX_STANDARD 23)
 
-target_link_libraries(SearchingAlgorithmsV2 PRIVATE fmt::fmt-header-only)
-target_link_libraries(DataCreation PRIVATE fmt::fmt-header-only)
-
 include(CTest)
 enable_testing()
 add_executable(cpp_test testing/statements/TSP/testing.cpp)
 
-add_test(NAME N_3 COMMAND cpp_test --size 3)
-add_test(NAME N_4 COMMAND cpp_test --size 4)
+target_link_libraries(SearchingAlgorithmsV2 PRIVATE fmt::fmt-header-only)
+target_link_libraries(DataCreation PRIVATE fmt::fmt-header-only)
+target_link_libraries(cpp_test PRIVATE fmt::fmt-header-only)
+
+add_test(NAME N_3 COMMAND cpp_test --n 10)
+# add_test(NAME N_3 COMMAND cpp_test --size 3)
+# add_test(NAME N_4 COMMAND cpp_test --size 4)

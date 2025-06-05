@@ -31,11 +31,11 @@ int main(int argc, char**argv){
 
 	Problem<Board> statement = Problem<Board>(Board(state), Board());
 	algorithms.push_back(new ProbabilisticFocalSearch_PartialExpansion(statement, 1.05, 0.6, 2));
-	algorithms.push_back(new ProbabilisticFocalSearch(statement, 1.05, 0.6));
-	algorithms.push_back(new PFS_VDMPE(statement, 1.05, 0.6));
-	algorithms.push_back(new VDM_PE(statement));
-	algorithms.push_back(new AStarPartialExpansion(statement, 2));
-	algorithms.push_back(new FocalSearch(statement, 1.05));
+	// algorithms.push_back(new ProbabilisticFocalSearch(statement, 1.05, 0.6));
+	// algorithms.push_back(new PFS_VDMPE(statement, 1.05, 0.6));
+	// algorithms.push_back(new VDM_PE(statement));
+	// algorithms.push_back(new AStarPartialExpansion(statement, 2));
+	// algorithms.push_back(new FocalSearch(statement, 1.05));
 	// algorithms.push_back(new AStar(statement));
 	for (Algorithm *algorithm: algorithms) {
 		std::cerr << algorithm->getName() << std::endl;

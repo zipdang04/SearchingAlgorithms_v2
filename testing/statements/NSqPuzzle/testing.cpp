@@ -2,6 +2,8 @@
 #include <bits/stdc++.h>
 #include "../../../statements/NSqPuzzle/Board.h"
 
+#define CURRENT_TIMESTAMP std::chrono::steady_clock::now().time_since_epoch().count()
+
 int SIZE;
 
 void TestInit() {
@@ -51,7 +53,7 @@ void TestMove() {
 }
 
 int main(int argc, char** argv) {
-	registerGen(argc, argv, 1);
+	registerGen(argc, argv, 1); rnd.setSeed(CURRENT_TIMESTAMP);
 	SIZE = opt<int>("size");
 	Board _INIT(SIZE);
 

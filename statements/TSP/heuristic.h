@@ -1,7 +1,7 @@
 #pragma once
 #include <bits/stdc++.h>
 #include "Perm.h"
-#include <fmt/core.h>
+// #include <fmt/core.h>
 namespace Heuristic {
 	class DSU{
 		private:
@@ -20,21 +20,32 @@ namespace Heuristic {
 			}
 	};
 
-	inline double MST_Heuristic(Perm perm, int n, const std::vector<std::unordered_map<int, double>> &graph) {
-		std::unordered_map<int, int> change; int ptr = 0;
-		std::vector<int> all {perm.getHead(), Perm::START}; 
+	inline double MST_Heuristic(Perm perm, int n, const std::vector<std::vector<int>> &adj, const std::vector<std::vector<double>> &graph) {
+		std::vector<int> change(n, -1); int ptr = 0;
+		std::vector<int> all {perm.getHead()}; 
 
 		change[perm.getHead()] = ptr++;
+		if (change[Perm::START] < 0)
+			all.push_back(Perm::START),
+			change[Perm::START] = ptr++;
 		for (int i = 0; i < n; i++) 
 			if (not perm.isUsed(i)) 
 				change[i] = ptr++,
 				all.push_back(i);
+		// for (int i: all)  std::cerr << i << ' '; std::cerr << '|';
 		
 		std::vector<std::tuple<int, int, double>> edges;
-		for (int u: all) 
-			for (auto [v, w]: graph[u]) 
-				if (u < v and (v == perm.getHead() or v == Perm::START or not perm.isUsed(v))) 
-					edges.push_back({change[u], change[v], w});
+		int sz = all.size();
+		for (int i = 0; i < sz; i++)
+		for (int j = i + 1; j < sz; j++) {
+			int u = all[i], v = all[j];
+			if (graph[u][v] < 1e100)
+				edges.push_back({change[u], change[v], graph[u][v]});
+		}
+		// for (int u: all) 
+		// 	for (int v: adj[u])
+		// 		if (u < v and (v == perm.getHead() or v == Perm::START or not perm.isUsed(v))) 
+		// 			edges.push_back({change[u], change[v], graph[u][v]});
 		sort(edges.begin(), edges.end(), [](std::tuple<int, int, int> a, std::tuple<int, int, int> b) -> bool {
 			return std::get<2>(a) < std::get<2>(b);
 		});
@@ -48,6 +59,7 @@ namespace Heuristic {
 			if (dsu.countSCC() == 1) break;
 		}
 		if (dsu.countSCC() != 1) answer = 1e100;
+		// std::cerr << '|' << ' ' << answer << '\n';
 		return answer;
 	}
 }

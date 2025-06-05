@@ -43,12 +43,13 @@ int main(int argc, char** argv) {
 	rnd.setSeed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
 	n = opt<int>("n"); m = opt<int>("m");	
 	
-	std::string filename = fmt::format("NSQ-n{}-m{}_{}.inp", n, m, getTimeCode());
-	std::cerr << "filename: " << filename << std::endl;
-	std::ofstream ofs(filename);
 	
 	build();
 	assert((int)edges.size() == m);
+	
+	std::string filename = fmt::format("SSSP-n{}-m{}_{}.inp", n, m, getTimeCode());
+	std::cerr << "filename: " << filename << std::endl;
+	std::ofstream ofs(filename);
 
 	ofs << n << ' ' << m << "\n\n";
 	for (int i = 0; i < n; i++) {

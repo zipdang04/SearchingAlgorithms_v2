@@ -1,5 +1,5 @@
 *.inp
-statistics
+statistic*
 *.txt
 !CMakeLists.txt
 

@@ -2,8 +2,8 @@
 #include <bits/stdc++.h>
 #include "../statements/TSP/Problem.h"
 #include "../algorithms/problems/TSP.h"
-#include "../algorithms/Dijkstra.h"
 #include "../algorithms/AStar.h"
+#include "../algorithms/Dijkstra.h"
 #include "../algorithms/FocalSearch.h"
 #include "../algorithms/ProbabilisticFocalSearch.h"
 #include "../algorithms/AStarPE.h"
@@ -25,14 +25,14 @@ int main(int argc, char**argv){
 	input();
 	Problem<Perm> statement = Problem<Perm>(Perm(), Perm());
 
-	double w = 1.1, p = 0.6, C = 1'000'000'000;
+	double w = 1.1, p = 0.6, C = 500*2;
 	
-	// algorithms.push_back(new ProbabilisticFocalSearch_PartialExpansion(statement, w, p, C));
+	algorithms.push_back(new ProbabilisticFocalSearch_PartialExpansion(statement, w, p, C));
 	algorithms.push_back(new ProbabilisticFocalSearch(statement, w, p));
 	algorithms.push_back(new PFS_VDMPE(statement, w, p));
-	algorithms.push_back(new VDM_PE(statement));
-	// algorithms.push_back(new AStarPartialExpansion(statement, C));
 	algorithms.push_back(new FocalSearch(statement, w));
+	// algorithms.push_back(new VDM_PE(statement));
+	algorithms.push_back(new AStarPartialExpansion(statement, C));
 	algorithms.push_back(new AStar(statement));
 	for (Algorithm *algorithm: algorithms) {
 		std::cerr << algorithm->getName() << std::endl;
