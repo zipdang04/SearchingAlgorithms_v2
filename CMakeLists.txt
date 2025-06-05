@@ -11,9 +11,9 @@ FetchContent_Declare(fmt
 )
 FetchContent_MakeAvailable(fmt)
 
-add_executable(SearchingAlgorithmsV2 exec/NSqPuzzle.cpp)
-add_executable(DataCreation statements/NSqPuzzle/DataCreation.cpp)
-# add_executable(SearchingAlgorithmsV2 main.cpp)
+add_executable(SearchingAlgorithmsV2 "exec/TSP.cpp")
+add_executable(DataCreation statements/TSP/DataCreation.cpp)
+
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set_property(TARGET SearchingAlgorithmsV2 PROPERTY CXX_STANDARD 23)
@@ -24,7 +24,7 @@ target_link_libraries(DataCreation PRIVATE fmt::fmt-header-only)
 
 include(CTest)
 enable_testing()
-add_executable(cpp_test testing/statements/NSqPuzzle/testing.cpp)
+add_executable(cpp_test testing/statements/TSP/testing.cpp)
 
 add_test(NAME N_3 COMMAND cpp_test --size 3)
 add_test(NAME N_4 COMMAND cpp_test --size 4)

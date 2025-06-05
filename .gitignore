@@ -1,5 +1,10 @@
 *.inp
-stat*
+statistics
+*.txt
+!CMakeLists.txt
+
+# vscode
+.vscode
 # Prerequisites
 *.d
 
