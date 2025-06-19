@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../SearchingAlgorithm.h"
+#include "../base/SearchingAlgorithm.h"
 #include "../../statements/NSqPuzzle/Problem.h"
 #include <fmt/core.h>
 template<>

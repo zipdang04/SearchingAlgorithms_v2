@@ -20,18 +20,23 @@ namespace Heuristic {
 			}
 	};
 
+	std::unordered_map<long long, double> storeH;
 	inline double MST_Heuristic(Perm perm, int n, const std::vector<std::vector<int>> &adj, const std::vector<std::vector<double>> &graph) {
 		std::vector<int> change(n, -1); int ptr = 0;
 		std::vector<int> all {perm.getHead()}; 
 
+		long long _mask = (1ll << perm.getHead()) | (1ll << Perm::START);
 		change[perm.getHead()] = ptr++;
 		if (change[Perm::START] < 0)
 			all.push_back(Perm::START),
 			change[Perm::START] = ptr++;
 		for (int i = 0; i < n; i++) 
 			if (not perm.isUsed(i)) 
+				_mask |= 1ll << i,
 				change[i] = ptr++,
 				all.push_back(i);
+		
+		{auto it = storeH.find(_mask); if (it != storeH.end()) return it -> second;}
 		// for (int i: all)  std::cerr << i << ' '; std::cerr << '|';
 		
 		std::vector<std::tuple<int, int, double>> edges;
@@ -60,6 +65,7 @@ namespace Heuristic {
 		}
 		if (dsu.countSCC() != 1) answer = 1e100;
 		// std::cerr << '|' << ' ' << answer << '\n';
+		storeH[_mask] = answer;
 		return answer;
 	}
 }

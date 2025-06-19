@@ -1,6 +1,6 @@
 #pragma once
 #include <bits/stdc++.h>
-#include "SearchingAlgorithm.h"
+#include "base/SearchingAlgorithm.h"
 #include <fmt/core.h>
 template<class State>
 class ProbabilisticFocalSearch_PartialExpansion: public SearchingAlgorithm<State> {
@@ -10,11 +10,13 @@ class ProbabilisticFocalSearch_PartialExpansion: public SearchingAlgorithm<State
 				if (a.f != b.f) return a.f < b.f;
 				if (a.g != b.g) return a.g < b.g;
 				if (a.h != b.h) return a.h < b.h;
+				if (a.hFocal != b.hFocal) return a.hFocal < b.hFocal;
 				return a.state < b.state;
 			}
 		};
 		struct CompareH {
 			bool operator() (StateInfo<State> a, StateInfo<State> b) const {
+				if (a.hFocal != b.hFocal) return a.hFocal < b.hFocal;
 				if (a.h != b.h) return a.h < b.h;
 				if (a.g != b.g) return a.g < b.g;
 				if (a.f != b.f) return a.f < b.f;
@@ -27,20 +29,20 @@ class ProbabilisticFocalSearch_PartialExpansion: public SearchingAlgorithm<State
 		std::set<StateInfo<State>, CompareF> closedList;
 
 		void updateFocal(double oldBound, double newBound) {
-			auto it = openList.lower_bound(StateInfo<State>(State(), oldBound, 0, 0));
+			auto it = openList.lower_bound(StateInfo<State>(State(), oldBound, 0, 0, 0));
 			while (it != openList.end() and it -> f <= newBound) {
 				focalList.insert(*it); it++;
 			}
 		}
 		void execute() override {
 			State _start = (this -> statement).getSource();
+			StateInfo<State> _startInfo = this -> buildStateInfo(_start, 0);
 
-			double initH = (this -> statement).heuristic(_start);
 			(this -> g)[_start] = 0; 
 			(this -> actionTrace)[_start] = "";
-			(this -> f)[_start] = initH;
-			openList.emplace(_start, initH, 0, initH);
-			focalList.emplace(_start, initH, 0, initH);
+			(this -> f)[_start] = _startInfo.h;
+			openList.emplace(_startInfo);
+			focalList.emplace(_startInfo);
 
 			while (not openList.empty()) {
 				this -> UPDATE_SIZE(openList.size() + closedList.size() + focalList.size());
@@ -58,32 +60,29 @@ class ProbabilisticFocalSearch_PartialExpansion: public SearchingAlgorithm<State
 				
 				double minClosed = 1e100; bool isMinUpdated = false;
 				for (auto [action, newState, cost]: (this -> statement).getAdjacent(node.state)) {
-					double newG = node.g + cost, h = (this -> statement).heuristic(newState);
-					double newF = newG + h;
+					StateInfo<State> newNode = this -> buildStateInfo(newState, node.g + cost);
 
 					auto itG = (this -> g).find(newState);
 					if (itG != (this -> g).end()) {
 						double oldG = itG -> second;
-						if (oldG <= newG) continue;
-						double oldF = f.find(newState) -> second;
+						if (oldG <= newNode.g) continue;
 						
-						StateInfo<State> oldNode(newState, oldF, oldG, h);
+						StateInfo<State> oldNode = this -> buildStateInfo(newState, oldG);
 						openList.erase(oldNode);
 						focalList.erase(oldNode);
 						closedList.erase(oldNode);
 					}
 
-					f[newState] = newF;
-					(this -> g)[newState] = newG;
+					f[newState] = newNode.f;
+					(this -> g)[newState] = newNode.g;
 					(this -> actionTrace)[newState] = action;
-					StateInfo<State> newNode(newState, newF, newG, h);
 
-					if (newF <= node.f + cBound) {
+					if (newNode.f <= node.f + cBound) {
 						openList.insert(newNode);
 						if (newNode.f <= fMin * eps) 
 							focalList.insert(newNode);
 					} else {
-						minClosed = std::min(minClosed, newF),
+						minClosed = std::min(minClosed, newNode.f),
 						isMinUpdated = true;
 					}
 				}

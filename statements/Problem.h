@@ -7,6 +7,8 @@ struct Transition {
 	std::string action;
 	State state;
 	double cost;
+	Transition<State>(std::string action, State state, double cost)
+	: action(action), state(state), cost(cost) {}
 };
 template<typename State>
 class Problem {

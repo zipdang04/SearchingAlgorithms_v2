@@ -5,7 +5,7 @@
 
 #pragma once
 #include <bits/stdc++.h>
-#include "SearchingAlgorithm.h"
+#include "base/SearchingAlgorithm.h"
 #include <fmt/core.h>
 
 template<class State>
@@ -16,10 +16,10 @@ class VDM_PE: public SearchingAlgorithm<State> {
 
 		void execute() override {
 			State _start = (this -> statement).getSource();
+			StateInfo<State> _startInfo = this -> buildStateInfo(_start, 0);
 
-			double initH = (this -> statement).heuristic(_start);
-			f[_start] = initH; (this -> g)[_start] = 0; (this -> actionTrace)[_start] = "";
-			opening.emplace(std::vector<StateInfo<State>>{StateInfo<State>(_start, initH, 0, initH)});
+			f[_start] = _startInfo.h; (this -> g)[_start] = 0; (this -> actionTrace)[_start] = "";
+			opening.emplace(std::vector<StateInfo<State>>{_startInfo});
 
 			while (not opening.empty()) {
 				this -> UPDATE_SIZE(opening.size());

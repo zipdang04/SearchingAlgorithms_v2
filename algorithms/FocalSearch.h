@@ -1,4 +1,6 @@
-#include "SearchingAlgorithm.h"
+#pragma once
+
+#include "base/SearchingAlgorithm.h"
 
 template<class State>
 class FocalSearch: public SearchingAlgorithm<State> {
@@ -8,11 +10,13 @@ class FocalSearch: public SearchingAlgorithm<State> {
 				if (a.f != b.f) return a.f < b.f;
 				if (a.g != b.g) return a.g < b.g;
 				if (a.h != b.h) return a.h < b.h;
+				if (a.hFocal != b.hFocal) return a.hFocal < b.hFocal;
 				return a.state < b.state;
 			}
 		};
 		struct CompareH {
 			bool operator() (StateInfo<State> a, StateInfo<State> b) const {
+				if (a.hFocal != b.hFocal) return a.hFocal < b.hFocal;
 				if (a.h != b.h) return a.h < b.h;
 				if (a.g != b.g) return a.g < b.g;
 				if (a.f != b.f) return a.f < b.f;
@@ -30,12 +34,12 @@ class FocalSearch: public SearchingAlgorithm<State> {
 		}
 		void execute() override {
 			State _start = (this -> statement).getSource();
+			StateInfo<State> _startInfo = this -> buildStateInfo(_start, 0);
 
 			(this -> g)[_start] = 0; 
 			(this -> actionTrace)[_start] = "";
-			double initH = (this -> statement).heuristic(_start);
-			openList.emplace(_start, initH, 0, initH);
-			focalList.emplace(_start, initH, 0, initH);
+			openList.emplace(_startInfo);
+			focalList.emplace(_startInfo);
 
 			while (not openList.empty()) {
 				this -> UPDATE_SIZE(openList.size() + focalList.size());

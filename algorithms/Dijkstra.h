@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SearchingAlgorithm.h"
+#include "base/SearchingAlgorithm.h"
 #include <bits/stdc++.h>
 
 template<class State>
@@ -14,9 +14,10 @@ class Dijkstra: public SearchingAlgorithm<State> {
 			std::unordered_map<State, double> *g = &(this -> g);
 			std::unordered_map<State, std::string> *actionTrace = &(this -> actionTrace);
 			
+			StateInfo<State> _startInfo = this -> buildStateInfo(_start, 0);
 			(*g)[_start] = 0; 
 			(*actionTrace)[_start] = "";
-			pq.emplace(_start, 0, 0);
+			pq.emplace(_startInfo);
 
 			while (not pq.empty()) {
 				StateInfo<State> currentInfo = pq.top(); pq.pop();

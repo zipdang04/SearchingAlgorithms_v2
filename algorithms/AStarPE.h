@@ -1,4 +1,4 @@
-#include "SearchingAlgorithm.h"
+#include "base/SearchingAlgorithm.h"
 
 template<class State>
 class AStarPartialExpansion: public SearchingAlgorithm<State> {	
@@ -8,10 +8,10 @@ class AStarPartialExpansion: public SearchingAlgorithm<State> {
 		
 		void execute() override {
 			State _start = (this -> statement).getSource();
+			StateInfo<State> _startInfo = this -> buildStateInfo(_start, 0);
 
-			double initH = (this -> statement).heuristic(_start);
-			f[_start] = initH; (this -> g)[_start] = 0; (this -> actionTrace)[_start] = "";
-			opening.emplace(_start, initH, 0, initH);
+			f[_start] = _startInfo.h; (this -> g)[_start] = 0; (this -> actionTrace)[_start] = "";
+			opening.emplace(_startInfo);
 
 			while (not opening.empty()) {
 				this -> UPDATE_SIZE(opening.size() + closed.size());
@@ -24,25 +24,24 @@ class AStarPartialExpansion: public SearchingAlgorithm<State> {
 
 				double minClosed = 1e100; bool isMinUpdated = false;
 				for (auto [action, newState, cost]: (this -> statement).getAdjacent(node.state)) {
-					double newG = (node.g) + cost, h = (this -> statement).heuristic(newState),
-						   newF = newG + h;
+					StateInfo<State> newNode = this -> buildStateInfo(newState, node.g + cost);
 					
 					auto it = (this -> g).find(newState);
 					if (it != (this -> g).end()) {
-						if (it -> second <= newG) continue;
+						if (it -> second <= newNode.g) continue;
 
-						double oldG = it -> second, oldF = f.find(newState) -> second;
-						StateInfo<State> oldNode(newState, oldF, oldG, h);
+						double oldG = it -> second;
+						StateInfo<State> oldNode = this -> buildStateInfo(newState, oldG);
 						opening.erase(oldNode);
 						closed.erase(oldNode);
-						// newF = std::min(newF, oldF); might test for optimization
+						// newNode.f = std::min(newNode.f, oldF); might test for optimization
 					}
 					
-					f[newState] = newF; (this -> g)[newState] = newG; (this -> actionTrace)[newState] = action;
-					if (newF <= node.f + cBound) 
-						opening.emplace(newState, newF, newG, h);
+					f[newState] = newNode.f; (this -> g)[newState] = newNode.g; (this -> actionTrace)[newState] = action;
+					if (newNode.f <= node.f + cBound) 
+						opening.emplace(newNode);
 					else {
-						minClosed = std::min(minClosed, newF),
+						minClosed = std::min(minClosed, newNode.f),
 						isMinUpdated = true;
 					}
 				}

@@ -25,15 +25,15 @@ int main(int argc, char**argv){
 	input();
 	Problem<Perm> statement = Problem<Perm>(Perm(), Perm());
 
-	double w = 1.1, p = 0.6, C = 500*2;
+	double w = 1.05, p = 0.85, C = 500;
 	
 	algorithms.push_back(new ProbabilisticFocalSearch_PartialExpansion(statement, w, p, C));
 	algorithms.push_back(new ProbabilisticFocalSearch(statement, w, p));
 	algorithms.push_back(new PFS_VDMPE(statement, w, p));
-	algorithms.push_back(new FocalSearch(statement, w));
+	// algorithms.push_back(new FocalSearch(statement, w));
 	// algorithms.push_back(new VDM_PE(statement));
-	algorithms.push_back(new AStarPartialExpansion(statement, C));
-	algorithms.push_back(new AStar(statement));
+	// algorithms.push_back(new AStarPartialExpansion(statement, C));
+	// algorithms.push_back(new AStar(statement));
 	for (Algorithm *algorithm: algorithms) {
 		std::cerr << algorithm->getName() << std::endl;
 		std::cout << "start " << algorithm -> getName() << '\n';

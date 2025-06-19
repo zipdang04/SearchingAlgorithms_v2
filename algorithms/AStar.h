@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SearchingAlgorithm.h"
+#include "base/SearchingAlgorithm.h"
 #include <bits/stdc++.h>
 
 template<class State>
@@ -10,10 +10,11 @@ class AStar: public SearchingAlgorithm<State> {
 	
 		void execute() override {
 			State _start = (this -> statement).getSource();
+			StateInfo<State> _startInfo = this -> buildStateInfo(_start, 0);
+
 			(this -> g)[_start] = 0; 
 			(this -> actionTrace)[_start] = "";
-			double initH = (this -> statement).heuristic(_start);
-			pq.emplace(_start, initH, 0, initH);
+			pq.emplace(_startInfo);
 
 			while (not pq.empty()) {
 				StateInfo<State> currentInfo = pq.top(); pq.pop();
@@ -25,16 +26,15 @@ class AStar: public SearchingAlgorithm<State> {
 				this -> NEW_ITERATION();
 
 				for (auto [action, newState, cost]: (this -> statement).getAdjacent(currentInfo.state)) {
-					double newG = currentInfo.g + cost, h = (this -> statement).heuristic(newState);
-					double newF = newG + h;
+					StateInfo<State> newNode = this -> buildStateInfo(newState, currentInfo.g + cost);
 					
 					auto it = (this -> g).find(newState);
-					if (it != (this -> g).end() and it -> second <= newG)	// currently better
+					if (it != (this -> g).end() and it -> second <= newNode.g)	// currently better
 						continue;
 					
-					(this -> g)[newState] = newG;
+					(this -> g)[newState] = newNode.g;
 					(this -> actionTrace)[newState] = action;
-					pq.emplace(newState, newF, newG, h);
+					pq.emplace(newNode);
 				}
 			}
 		}

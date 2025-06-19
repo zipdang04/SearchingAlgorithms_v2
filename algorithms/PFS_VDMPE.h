@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SearchingAlgorithm.h"
+#include "base/SearchingAlgorithm.h"
 #include "testlib.h"
 #include <fmt/core.h>
 
@@ -14,6 +14,7 @@ class PFS_VDMPE: public SearchingAlgorithm<State> {
 					if (a.f != b.f) return a.f < b.f;
 					if (a.g != b.g) return a.g < b.g;
 					if (a.h != b.h) return a.h < b.h;
+					if (a.hFocal != b.hFocal) return a.hFocal < b.hFocal;
 					if (a.state != b.state) return a.state < b.state;
 					if (a.pop_able() != b.pop_able())
 						return a.pop_able() < b.pop_able();
@@ -26,6 +27,7 @@ class PFS_VDMPE: public SearchingAlgorithm<State> {
 		struct CompareH {
 			bool operator() (BigInfo<State> a, BigInfo<State> b) const {
 				while (true) {
+					if (a.hFocal != b.hFocal) return a.hFocal < b.hFocal;
 					if (a.h != b.h) return a.h < b.h;
 					if (a.g != b.g) return a.g < b.g;
 					if (a.f != b.f) return a.f < b.f;
@@ -42,7 +44,7 @@ class PFS_VDMPE: public SearchingAlgorithm<State> {
 		std::set<BigInfo<State>, CompareH> focalList;
 
 		void updateFocal(double oldBound, double newBound) {
-			auto it = openList.lower_bound(BigInfo<State>(State(), oldBound, 0, 0));
+			auto it = openList.lower_bound(BigInfo<State>(State(), oldBound, 0, 0, 0));
 			while (it != openList.end() and it -> f <= newBound) {
 				focalList.insert(*it); it++;
 			}
@@ -76,7 +78,7 @@ class PFS_VDMPE: public SearchingAlgorithm<State> {
 			(this -> actionTrace)[_start] = "";
 			double initH = (this -> statement).heuristic(_start);
 
-			BigInfo<State> _init(std::vector<StateInfo<State>>{StateInfo<State>(_start, initH, 0, initH)});
+			BigInfo<State> _init(std::vector<StateInfo<State>>{this -> buildStateInfo(_start, 0)});
 			
 			openList.insert(_init);
 			focalList.insert(_init);
@@ -101,23 +103,24 @@ class PFS_VDMPE: public SearchingAlgorithm<State> {
 				
 				std::vector<StateInfo<State>> all;
 				for (auto [action, newState, cost]: (this -> statement).getAdjacent(node.state)) {
-					double newG = node.g + cost, h = (this -> statement).heuristic(newState);
-					double newF = newG + h;
+					StateInfo<State> newInfo = this -> buildStateInfo(newState, node.g + cost);
+					// double newG = node.g + cost, h = (this -> statement).heuristic(newState);
+					// double newF = newG + h;
 
 					auto itG = (this -> g).find(newState);
 					if (itG != (this -> g).end()) {
 						double oldG = itG -> second;
-						if (oldG <= newG) continue;
+						if (oldG <= newInfo.g) continue;
 
 						// BigInfo<State> _ref(newState, oldG + h, oldG, h);
 						// erase(openList, _ref);
 						// erase(focalList, _ref);
 					}
 
-					(this -> g)[newState] = newG;
+					(this -> g)[newState] = newInfo.g;
 					(this -> actionTrace)[newState] = action;
 
-					all.push_back(StateInfo<State> (newState, newF, newG, h));
+					all.push_back(newInfo);
 					// openList.insert(newNode);
 					// if (newNode.f <= fMin * eps) 
 					// 	focalList.insert(newNode);
