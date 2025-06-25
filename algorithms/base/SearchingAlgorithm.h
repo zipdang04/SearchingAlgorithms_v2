@@ -37,9 +37,6 @@ class SearchingAlgorithm: public Algorithm {
 		
 	public:
 		SearchingAlgorithm(Problem<State> statement): statement(statement) {}
-
-		
-		
 		virtual std::vector<std::string> getTrace() { throw NotImplementedException("no trace function found"); }
 		long long getExpandedCount() { return g.size(); }
 		long long getIterationCount() { return iteration; }

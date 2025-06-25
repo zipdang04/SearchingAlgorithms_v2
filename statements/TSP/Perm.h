@@ -4,7 +4,6 @@
 
 // TODO: improve 
 
-struct DEdge { int u; double w; };
 class Perm {
 	private:
 		std::vector<int> perm;
