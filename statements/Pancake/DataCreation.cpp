@@ -26,11 +26,18 @@ main(int argc, char** argv) {
 	
 	ofs << SZ_N << std::endl;
 	
-	std::vector<int> board(Perm::SIZE);
-	std::iota(board.begin(), board.end(), 0);
-	shuffle(board.begin(), board.end());
-	std::cerr << Perm::SIZE << ' ' << board.size() << '\n';
-	Perm perm(board);
+	Perm perm;
+	if (shuffle_steps == 0) {
+		std::vector<int> board(Perm::SIZE);
+		std::iota(board.begin(), board.end(), 0);
+		shuffle(board.begin(), board.end());
+		perm = Perm(board);
+	} else {
+		for (int _ = 0; _ < shuffle_steps; _++) {
+			int a = rnd.next(2, SZ_N);
+			perm = perm.move(a);
+		}
+	}
 	for (int i = 0; i < Perm::SIZE; i++)
 		ofs << perm[i] << " \n"[i == SZ_N - 1];
 

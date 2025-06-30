@@ -47,6 +47,9 @@ int main(int argc, char**argv){
 		std::cout << "count of expanded nodes: " << ((SearchingAlgorithm<Perm>*) algorithm) -> getExpandedCount() << '\n';
 		std::cout << "count of expanded iterations: " << ((SearchingAlgorithm<Perm>*) algorithm) -> getIterationCount() << '\n';
 		std::cout << "count of max size: " << ((SearchingAlgorithm<Perm>*) algorithm) -> getMaxSize() << '\n';
+		
+		std::vector<std::string> trace = ((SearchingAlgorithm<Perm>*) algorithm) -> getTrace();
+		std::cout << "answer length: " << trace.size() << '\n';
 		std::cout << "steps: ";
 		for (std::string s: ((SearchingAlgorithm<Perm>*) algorithm) -> getTrace()) std::cout << s << " -> ";
 		std::cout << '\n';
