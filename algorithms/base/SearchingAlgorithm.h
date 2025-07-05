@@ -8,8 +8,9 @@
 template<class State>
 class SearchingAlgorithm: public Algorithm {
 	private:
+		inline static const int TLCHECK_CYCLE = 10'000;
 		bool FINISHED = false;
-		long long iteration = 0, mod50k = 0;
+		long long iteration = 0, modulo = 0;
 		long long maxSize = 0;
 		double answer = 0; State ansState;
 	protected:
@@ -23,8 +24,8 @@ class SearchingAlgorithm: public Algorithm {
 			FINISHED = true; 
 		}
 		inline bool ITERATION_CHECK() {
-			iteration++; mod50k++;
-			if (mod50k == 50'000) return mod50k=0, isTLE();	
+			iteration++; modulo++;
+			if (modulo == TLCHECK_CYCLE) return modulo=0, isTLE();	
 			else return false;
 		}
 		inline void UPDATE_SIZE(long long size) {
