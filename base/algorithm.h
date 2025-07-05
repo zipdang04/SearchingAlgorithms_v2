@@ -29,7 +29,7 @@ class Algorithm{
 
 		double measure() {
 			beginTime = currentTime();
-			execute(); hasRun = true;
+			execute(); endTime = currentTime(); hasRun = true;
 			long long count = getDuration();
 			return count / 1'000'000.0;
 		};
