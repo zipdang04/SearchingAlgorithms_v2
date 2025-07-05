@@ -31,7 +31,9 @@ int main(int argc, char**argv){
 	Algorithm::changeTimeLimit(TIME_LIMIT);
 	input();
 
-	double w = 1.1, p = 0.6, C = 2;
+	double w = opt<double>("w", 1.1), 
+		   p = opt<double>("p", 0.6), 
+		   C = opt<double>("C", 2);
 
 	Problem<Perm> statement = Problem<Perm>(Perm(state), Perm());
 	algorithms.push_back(new ProbabilisticFocalSearch_PartialExpansion(statement, w, p, C));

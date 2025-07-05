@@ -28,7 +28,9 @@ int main(int argc, char**argv){
 	input();
 	Problem<Perm> statement = Problem<Perm>(Perm(), Perm());
 
-	double w = 1.1, p = 0.6, C = 3;
+	double w = opt<double>("w", 1.1), 
+		   p = opt<double>("p", 0.6), 
+		   C = opt<double>("C");
 	
 	algorithms.push_back(new ProbabilisticFocalSearch_PartialExpansion(statement, w, p, C));
 	algorithms.push_back(new ProbabilisticFocalSearch(statement, w, p));
