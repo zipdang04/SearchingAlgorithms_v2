@@ -27,10 +27,11 @@ void input() {
 std::vector<Algorithm*> algorithms;
 int main(int argc, char**argv){
 	registerGen(argc, argv, 1);
+	const int TIME_LIMIT = opt<int>("tl");
+	Algorithm::changeTimeLimit(TIME_LIMIT);
 	input();
-	for (int i = 0; i < Perm::SIZE; i++) std::cerr << state[i] << " \n"[i == Perm::SIZE - 1];
 
-	double w = 1.1, p = 0.6, C = 3;
+	double w = 1.1, p = 0.6, C = 2;
 
 	Problem<Perm> statement = Problem<Perm>(Perm(state), Perm());
 	algorithms.push_back(new ProbabilisticFocalSearch_PartialExpansion(statement, w, p, C));

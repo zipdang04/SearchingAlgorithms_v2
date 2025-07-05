@@ -22,6 +22,9 @@ void input() {
 std::vector<Algorithm*> algorithms;
 int main(int argc, char**argv){
 	registerGen(argc, argv, 1);
+	const int TIME_LIMIT = opt<int>("tl");
+	Algorithm::changeTimeLimit(TIME_LIMIT);
+	
 	input();
 	Problem<Node> statement = SSSP_2DPlane::problem;
 
