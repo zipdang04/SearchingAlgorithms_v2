@@ -2,7 +2,14 @@
 
 #include "exceptions.h"
 
+using duration = std::chrono::_V2::high_resolution_clock::duration;
 class Algorithm{
+	private:
+		inline static const int MICROSECONDS = 1'000'000;
+		inline static long long TIME_LIMIT = 600ll * MICROSECONDS;
+		duration beginTime, endTime;
+		inline duration currentTime() {return std::chrono::high_resolution_clock::now().time_since_epoch();}
+		inline long long getDuration() {return std::chrono::duration_cast<std::chrono::microseconds>(endTime - beginTime).count();}
 	protected:
 		// static
 		std::string algoName;
@@ -11,16 +18,19 @@ class Algorithm{
 		virtual void execute() {
 			throw NotImplementedException("No Algorithm::execute() yet");
 		};
+		bool isTLE() {
+			endTime = currentTime();
+			return getDuration() > TIME_LIMIT;
+		}
 	public:
 		std::string getName() {return algoName;}
 		Algorithm* changeName(std::string name) {algoName = name; return this;}
+		inline static void changeTimeLimit(long long seconds) {TIME_LIMIT = seconds * MICROSECONDS;}
 
 		double measure() {
-			auto beginTime = std::chrono::high_resolution_clock::now().time_since_epoch();
+			beginTime = currentTime();
 			execute(); hasRun = true;
-			auto endTime = std::chrono::high_resolution_clock::now().time_since_epoch();
-			auto duration = endTime - beginTime;
-			long long count = std::chrono::duration_cast<std::chrono::microseconds>(duration).count();
+			long long count = getDuration();
 			return count / 1'000'000.0;
 		};
 		virtual ~Algorithm() {};

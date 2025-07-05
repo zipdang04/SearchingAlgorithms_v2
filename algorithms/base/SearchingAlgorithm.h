@@ -25,6 +25,7 @@ class SearchingAlgorithm: public Algorithm {
 		inline bool ITERATION_CHECK() {
 			iteration++; mod50k++;
 			if (mod50k == 50'000) return mod50k=0, isTLE();	
+			else return false;
 		}
 		inline void UPDATE_SIZE(long long size) {
 			if (size > this -> maxSize)
