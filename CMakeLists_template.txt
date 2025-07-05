@@ -11,8 +11,8 @@ FetchContent_Declare(fmt
 )
 FetchContent_MakeAvailable(fmt)
 
-add_executable(SearchingAlgorithmsV2 "exec/Pancake.cpp")
-add_executable(DataCreation statements/Pancake/DataCreation.cpp)
+add_executable(SearchingAlgorithmsV2 "exec/ALGORITHM.cpp")
+add_executable(DataCreation statements/ALGORITHM/DataCreation.cpp)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -21,7 +21,7 @@ set_property(TARGET DataCreation PROPERTY CXX_STANDARD 23)
 
 include(CTest)
 enable_testing()
-add_executable(cpp_test testing/statements/Pancake/testing.cpp)
+add_executable(cpp_test testing/statements/ALGORITHM/testing.cpp)
 
 target_link_libraries(SearchingAlgorithmsV2 PRIVATE fmt::fmt-header-only)
 target_link_libraries(DataCreation PRIVATE fmt::fmt-header-only)

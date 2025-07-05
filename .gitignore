@@ -1,7 +1,7 @@
 *.inp
 statistic*
 *.txt
-!CMakeLists.txt
+!CMakeLists*
 
 # vscode
 .vscode

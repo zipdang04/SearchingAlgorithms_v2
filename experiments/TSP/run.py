@@ -13,22 +13,22 @@ class TestSetting:
 
 TIME_LIMIT = 600
 TEST_SETTINGS = {
-	TestSetting(n=15, ctrl=50): 5,
-	# TestSetting(n=15, ctrl=100): 50,
-	# TestSetting(n=15, ctrl=150): 50,
-	# TestSetting(n=15, ctrl=200): 50,
-	# TestSetting(n=20, ctrl=50): 50,
-	# TestSetting(n=20, ctrl=100): 50,
-	# TestSetting(n=20, ctrl=150): 50,
-	# TestSetting(n=20, ctrl=200): 50,
-	# TestSetting(n=50, ctrl=10): 100,
-	# TestSetting(n=50, ctrl=15): 100,
-	# TestSetting(n=50, ctrl=20): 100,
-	# TestSetting(n=50, ctrl=25): 100,
-	# TestSetting(n=10, ctrl=0): 200,
-	# TestSetting(n=15, ctrl=0): 200,
-	# TestSetting(n=20, ctrl=0): 200,
-	# TestSetting(n=25, ctrl=0): 200,
+	TestSetting(n=15, ctrl=50): 50,
+	TestSetting(n=15, ctrl=100): 50,
+	TestSetting(n=15, ctrl=150): 50,
+	TestSetting(n=15, ctrl=200): 50,
+	TestSetting(n=20, ctrl=50): 50,
+	TestSetting(n=20, ctrl=100): 50,
+	TestSetting(n=20, ctrl=150): 50,
+	TestSetting(n=20, ctrl=200): 50,
+	TestSetting(n=50, ctrl=10): 100,
+	TestSetting(n=50, ctrl=15): 100,
+	TestSetting(n=50, ctrl=20): 100,
+	TestSetting(n=50, ctrl=25): 100,
+	TestSetting(n=10, ctrl=0): 200,
+	TestSetting(n=15, ctrl=0): 200,
+	TestSetting(n=20, ctrl=0): 200,
+	TestSetting(n=25, ctrl=0): 200,
 }
 EXE = [
 	"../../build/SearchingAlgorithmsV2"
