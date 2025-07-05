@@ -24,7 +24,7 @@ namespace TSP {
 		std::cin >> n >> m;
 		initSize(n);
 		for (int i = 0; i < n; i++) {
-			int x, y; std::cin >> x >> y;
+			double x, y; std::cin >> x >> y;
 			points[i] = Point(x, y);
 		}
 		for (int _ = 0; _ < m; _++) {

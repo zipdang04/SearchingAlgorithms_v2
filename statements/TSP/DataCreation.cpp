@@ -26,8 +26,8 @@ void build() {
 	shuffle(perm, perm + n);
 
 	for (int i = 0; i < n; i++) {
-		int x = rnd.next(-500, 500);
-		int y = rnd.next(-500, 500);
+		double x = rnd.next(-10.0, 10.0);
+		double y = rnd.next(-10.0, 10.0);
 		points[i] = {x, y};
 	}
 
