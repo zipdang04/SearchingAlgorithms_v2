@@ -9,7 +9,7 @@ template<class State>
 class SearchingAlgorithm: public Algorithm {
 	private:
 		bool FINISHED = false;
-		long long iteration = 0;
+		long long iteration = 0, mod50k = 0;
 		long long maxSize = 0;
 		double answer = 0; State ansState;
 	protected:
@@ -22,7 +22,10 @@ class SearchingAlgorithm: public Algorithm {
 			this -> answer = (this -> g)[ansState];
 			FINISHED = true; 
 		}
-		inline void NEW_ITERATION() {iteration++;}
+		inline bool ITERATION_CHECK() {
+			iteration++; mod50k++;
+			if (mod50k == 50'000) return mod50k=0, isTLE();	
+		}
 		inline void UPDATE_SIZE(long long size) {
 			if (size > this -> maxSize)
 				this -> maxSize = size;

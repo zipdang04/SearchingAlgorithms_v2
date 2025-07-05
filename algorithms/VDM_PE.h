@@ -37,7 +37,7 @@ class VDM_PE: public SearchingAlgorithm<State> {
 				}
 				if (node.g != (this -> g)[node.state]) 
 					continue;
-				this -> NEW_ITERATION();
+				if (this -> ITERATION_CHECK() == true) return;
 				
 				std::vector<StateInfo<State>> all;
 				for (auto [action, newState, cost]: (this -> statement).getAdjacent(node.state)) {

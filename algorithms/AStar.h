@@ -23,7 +23,7 @@ class AStar: public SearchingAlgorithm<State> {
 					this -> FINISH_SEARCHING(currentInfo.state);
 					break;
 				}
-				this -> NEW_ITERATION();
+				if (this -> ITERATION_CHECK() == true) return;
 
 				for (auto [action, newState, cost]: (this -> statement).getAdjacent(currentInfo.state)) {
 					StateInfo<State> newNode = this -> buildStateInfo(newState, currentInfo.g + cost);

@@ -20,7 +20,7 @@ class AStarPartialExpansion: public SearchingAlgorithm<State> {
 					this -> FINISH_SEARCHING(node.state);
 					return;
 				}
-				this -> NEW_ITERATION();
+				if (this -> ITERATION_CHECK() == true) return;
 
 				double minClosed = 1e100; bool isMinUpdated = false;
 				for (auto [action, newState, cost]: (this -> statement).getAdjacent(node.state)) {

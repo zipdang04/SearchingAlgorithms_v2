@@ -52,7 +52,7 @@ class FocalSearch: public SearchingAlgorithm<State> {
 					this -> FINISH_SEARCHING(node.state);
 					return;
 				}
-				this -> NEW_ITERATION();
+				if (this -> ITERATION_CHECK() == true) return;
 				
 				for (auto [action, newState, cost]: (this -> statement).getAdjacent(node.state)) {
 					double newG = node.g + cost, h = (this -> statement).heuristic(newState);

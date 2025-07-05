@@ -76,7 +76,6 @@ class PFS_VDMPE: public SearchingAlgorithm<State> {
 
 			(this -> g)[_start] = 0; 
 			(this -> actionTrace)[_start] = "";
-			double initH = (this -> statement).heuristic(_start);
 
 			BigInfo<State> _init(std::vector<StateInfo<State>>{this -> buildStateInfo(_start, 0)});
 			
@@ -99,13 +98,11 @@ class PFS_VDMPE: public SearchingAlgorithm<State> {
 				}
 				if (node.g != (this -> g[node.state]))
 					continue;
-				this -> NEW_ITERATION();
+				if (this -> ITERATION_CHECK() == true) return;
 				
 				std::vector<StateInfo<State>> all;
 				for (auto [action, newState, cost]: (this -> statement).getAdjacent(node.state)) {
 					StateInfo<State> newInfo = this -> buildStateInfo(newState, node.g + cost);
-					// double newG = node.g + cost, h = (this -> statement).heuristic(newState);
-					// double newF = newG + h;
 
 					auto itG = (this -> g).find(newState);
 					if (itG != (this -> g).end()) {
