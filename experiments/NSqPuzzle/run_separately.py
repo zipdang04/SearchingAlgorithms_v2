@@ -3,30 +3,41 @@ import json
 import os, sys, subprocess
 import datetime
 datetime.datetime.now().timestamp()
+
+class TestSetting:
+	def __init__(self, n, ctrl):
+		self.n = n; self.ctrl = ctrl
+	def __hash__(self):
+		return self.n * 10**30 + self.ctrl
+	def __eq__(self, value):
+		return self.n == value.n and self.ctrl == value.ctrl
+
+TIME_LIMIT = 600
+
 TEST_SETTINGS = {
-	"{\"n\": 4, \"ctrl\": 50}": 50,
-	"{\"n\": 4, \"ctrl\": 60}": 50,
-	"{\"n\": 4, \"ctrl\": 70}": 50,
-	"{\"n\": 4, \"ctrl\": 80}": 50,
-	"{\"n\": 4, \"ctrl\": 90}": 50,
-	"{\"n\": 4, \"ctrl\": 100}": 50,
-	"{\"n\": 4, \"ctrl\": 120}": 50,
-	"{\"n\": 4, \"ctrl\": 150}": 50,
-	"{\"n\": 4, \"ctrl\": 180}": 50,
-	"{\"n\": 4, \"ctrl\": 200}": 50,
-	"{\"n\": 4, \"ctrl\": 0}": 500,
+	TestSetting(n=4, ctrl=50): 50,
+	TestSetting(n=4, ctrl=60): 50,
+	TestSetting(n=4, ctrl=70): 50,
+	TestSetting(n=4, ctrl=80): 50,
+	TestSetting(n=4, ctrl=90): 50,
+	TestSetting(n=4, ctrl=100): 50,
+	TestSetting(n=4, ctrl=120): 50,
+	TestSetting(n=4, ctrl=150): 50,
+	TestSetting(n=4, ctrl=180): 50,
+	TestSetting(n=4, ctrl=200): 50,
+	TestSetting(n=4, ctrl=0): 500,
 	
-	"{\"n\": 5, \"ctrl\": 50}": 50,
-	"{\"n\": 5, \"ctrl\": 60}": 50,
-	"{\"n\": 5, \"ctrl\": 70}": 50,
-	"{\"n\": 5, \"ctrl\": 80}": 50,
-	"{\"n\": 5, \"ctrl\": 90}": 50,
-	"{\"n\": 5, \"ctrl\": 100}": 50,
-	"{\"n\": 5, \"ctrl\": 120}": 50,
-	"{\"n\": 5, \"ctrl\": 150}": 50,
-	"{\"n\": 5, \"ctrl\": 180}": 50,
-	"{\"n\": 5, \"ctrl\": 200}": 50,
-	"{\"n\": 5, \"ctrl\": 0}": 500,	
+	TestSetting(n=5, ctrl=50): 50,
+	TestSetting(n=5, ctrl=60): 50,
+	TestSetting(n=5, ctrl=70): 50,
+	TestSetting(n=5, ctrl=80): 50,
+	TestSetting(n=5, ctrl=90): 50,
+	TestSetting(n=5, ctrl=100): 50,
+	TestSetting(n=5, ctrl=120): 50,
+	TestSetting(n=5, ctrl=150): 50,
+	TestSetting(n=5, ctrl=180): 50,
+	TestSetting(n=5, ctrl=200): 50,
+	TestSetting(n=5, ctrl=0): 500,	
 }
 EXE = [
 	"../build/SearchingAlgorithmsV2"
@@ -36,7 +47,7 @@ def currentDirectory() -> str:
 os.chdir(currentDirectory())
 
 def makeTest(n: int, ctrl: int) -> str:
-	command = ["../build/DataCreation", "--n", str(n)]
+	command = ["../build/DataCreation", "--n", str(n), "--tl", str(TIME_LIMIT)]
 	if ctrl > 0:
 		command.append("--ctrl")
 		command.append(str(ctrl))
@@ -47,8 +58,7 @@ sys.stdout = open("statistics"+str(int(datetime.datetime.now().timestamp() * 100
 columns = ["n", "ctrl", "filename", "algo_name", "expanded_nodes", "iteration_count", "max_size", "time", "count_steps", "steps"]
 print(*columns, sep="\t")
 for key in TEST_SETTINGS:
-	_tmp = json.loads(key)
-	n, ctrl = _tmp["n"], _tmp["ctrl"]
+	n, ctrl = key.n, key.ctrl
 	COUNT = TEST_SETTINGS[key]
 	for i in range(COUNT):
 		inputFile = makeTest(n, ctrl)
@@ -56,7 +66,7 @@ for key in TEST_SETTINGS:
 		for PATH in EXE:
 			try:
 				fInput = open(inputFile, "r")
-				process = subprocess.run([PATH], stdin=fInput, capture_output=True, timeout=600)
+				process = subprocess.run([PATH, "--tl", str(TIME_LIMIT)], stdin=fInput, capture_output=True, timeout=600)
 				output = process.stdout.decode().split(sep = '\n')
 				for group in range(0, len(output), 6):
 					if (group + 4 >= len(output)): break

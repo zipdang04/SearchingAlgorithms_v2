@@ -110,7 +110,6 @@ Perm::Perm(int size) {
 	std::iota(values.begin(), values.end(), 0);
 }
 Perm::Perm(std::vector<int> values) {
-	std::cerr << values.size() << ' ' << SIZE << '\n';
 	if (SIZE == 0)
 		throw InvalidPermException("Perm SIZE not yet defined");
 	if (SIZE != (int)values.size())
