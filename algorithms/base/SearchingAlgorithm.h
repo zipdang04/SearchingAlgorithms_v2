@@ -8,7 +8,7 @@
 template<class State>
 class SearchingAlgorithm: public Algorithm {
 	private:
-		inline static const int TLCHECK_CYCLE = 10'000;
+		inline static const int TLCHECK_CYCLE = 2'000;
 		bool FINISHED = false;
 		long long iteration = 0, modulo = 0;
 		long long maxSize = 0;
