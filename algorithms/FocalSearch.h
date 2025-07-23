@@ -27,7 +27,7 @@ class FocalSearch: public SearchingAlgorithm<State> {
 		std::set<StateInfo<State>, CompareH> focalList;
 
 		void updateFocal(double oldBound, double newBound) {
-			auto it = openList.lower_bound(StateInfo<State>(State(), oldBound, 0, 0));
+			auto it = openList.lower_bound(StateInfo<State>(State(), oldBound, 0, 0, 0));
 			while (it != openList.end() and it -> f <= newBound) {
 				focalList.insert(*it); it++;
 			}
@@ -55,22 +55,23 @@ class FocalSearch: public SearchingAlgorithm<State> {
 				if (this -> ITERATION_CHECK() == true) return;
 				
 				for (auto [action, newState, cost]: (this -> statement).getAdjacent(node.state)) {
-					double newG = node.g + cost, h = (this -> statement).heuristic(newState);
-					double newF = newG + h;
+					StateInfo<State> newNode = this -> buildStateInfo(newState, node.g + cost);
+					// double newG = node.g + cost, h = (this -> statement).heuristic(newState);
+					// double newF = newG + h;
 
 					auto itG = (this -> g).find(newState);
 					if (itG != (this -> g).end()) {
 						double oldG = itG -> second;
-						if (oldG <= newG) continue;
+						if (oldG <= newNode.g) continue;
 
-						openList.erase(StateInfo<State>(newState, oldG + h, oldG, h));
-						focalList.erase(StateInfo<State>(newState, oldG + h, oldG, h));
+						StateInfo<State> oldNode = this -> buildStateInfo(newState, oldG);
+						openList.erase(oldNode);
+						focalList.erase(oldNode);
 					}
 
-					(this -> g)[newState] = newG;
+					(this -> g)[newState] = newNode.g;
 					(this -> actionTrace)[newState] = action;
 
-					StateInfo<State> newNode(newState, newF, newG, h);
 					openList.insert(newNode);
 					if (newNode.f <= fMin * eps) 
 						focalList.insert(newNode);
