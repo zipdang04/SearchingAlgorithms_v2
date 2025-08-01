@@ -57,7 +57,7 @@ for key in TEST_SETTINGS:
 		for PATH in EXE:
 			try:
 				fInput = open(inputFile, "r")
-				process = subprocess.run([PATH, "--tl", str(TIME_LIMIT)], stdin=fInput, capture_output=True, timeout=600)
+				process = subprocess.run([PATH, "--tl", str(TIME_LIMIT)], stdin=fInput, capture_output=True)
 				output = process.stdout.decode().split(sep = '\n')
 				for group in range(0, len(output), 7):
 					if (group + 4 >= len(output)): break
