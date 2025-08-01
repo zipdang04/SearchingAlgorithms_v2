@@ -8,7 +8,7 @@
 #include "../algorithms/ProbabilisticFocalSearch.h"
 #include "../algorithms/AStarPE.h"
 #include "../algorithms/PFS_PE.h"
-#include "../algorithms/VDM_PE.h"
+#include "../algorithms/VDM_PE.h" 
 #include "../algorithms/PFS_VDMPE.h"
 // const int SIZE = 4;
 Board _INIT("NOT_INIT");
@@ -40,9 +40,9 @@ int main(int argc, char**argv){
 	algorithms.push_back(new ProbabilisticFocalSearch_PartialExpansion(statement, w, p, C));
 	algorithms.push_back(new ProbabilisticFocalSearch(statement, w, p));
 	algorithms.push_back(new PFS_VDMPE(statement, w, p));
+	algorithms.push_back(new FocalSearch(statement, w));
 	// algorithms.push_back(new VDM_PE(statement));
 	// algorithms.push_back(new AStarPartialExpansion(statement, C));
-	// algorithms.push_back(new FocalSearch(statement, w));
 	// algorithms.push_back(new AStar(statement));
 	for (Algorithm *algorithm: algorithms) {
 		std::cerr << algorithm->getName() << std::endl;

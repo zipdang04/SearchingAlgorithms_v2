@@ -41,7 +41,7 @@ int main(int argc, char**argv){
 	algorithms.push_back(new PFS_VDMPE(statement, w, p));
 	// algorithms.push_back(new VDM_PE(statement));
 	// algorithms.push_back(new AStarPartialExpansion(statement, 2));
-	// algorithms.push_back(new FocalSearch(statement, 1.05));
+	algorithms.push_back(new FocalSearch(statement, w));
 	// algorithms.push_back(new AStar(statement)); 
 	for (Algorithm *algorithm: algorithms) {
 		std::cerr << algorithm->getName() << std::endl;

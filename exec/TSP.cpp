@@ -35,7 +35,7 @@ int main(int argc, char**argv){
 	algorithms.push_back(new ProbabilisticFocalSearch_PartialExpansion(statement, w, p, C));
 	algorithms.push_back(new ProbabilisticFocalSearch(statement, w, p));
 	algorithms.push_back(new PFS_VDMPE(statement, w, p));
-	// algorithms.push_back(new FocalSearch(statement, w));
+	algorithms.push_back(new FocalSearch(statement, w));
 	// algorithms.push_back(new VDM_PE(statement));
 	// algorithms.push_back(new AStarPartialExpansion(statement, C));
 	// algorithms.push_back(new AStar(statement));
