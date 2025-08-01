@@ -21,11 +21,6 @@ TEST_SETTINGS = {
 	TestSetting(n=4, ctrl=80): 50,
 	TestSetting(n=4, ctrl=90): 50,
 	TestSetting(n=4, ctrl=100): 50,
-	TestSetting(n=4, ctrl=120): 50,
-	TestSetting(n=4, ctrl=150): 50,
-	TestSetting(n=4, ctrl=180): 50,
-	TestSetting(n=4, ctrl=200): 50,
-	TestSetting(n=4, ctrl=0): 500,
 	
 	TestSetting(n=5, ctrl=50): 50,
 	TestSetting(n=5, ctrl=60): 50,
@@ -33,11 +28,6 @@ TEST_SETTINGS = {
 	TestSetting(n=5, ctrl=80): 50,
 	TestSetting(n=5, ctrl=90): 50,
 	TestSetting(n=5, ctrl=100): 50,
-	TestSetting(n=5, ctrl=120): 50,
-	TestSetting(n=5, ctrl=150): 50,
-	TestSetting(n=5, ctrl=180): 50,
-	TestSetting(n=5, ctrl=200): 50,
-	TestSetting(n=5, ctrl=0): 500,	
 }
 EXE = [
 	"../build/SearchingAlgorithmsV2"

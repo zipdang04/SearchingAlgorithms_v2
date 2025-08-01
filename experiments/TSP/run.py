@@ -13,13 +13,21 @@ class TestSetting:
 
 TIME_LIMIT = 600
 TEST_SETTINGS = {
-	TestSetting(n=20, C=5): 125,
-	TestSetting(n=25, C=10): 125,
-	TestSetting(n=27, C=11): 125,
-	TestSetting(n=28, C=12): 125,
-	TestSetting(n=29, C=13): 125,
-	TestSetting(n=30, C=15): 125,
+	TestSetting(n=12, C=8): 125,
+	TestSetting(n=14, C=9): 125,
+	TestSetting(n=15, C=9): 125,
+	TestSetting(n=18, C=9): 125,
+	TestSetting(n=19, C=9): 125,
+	TestSetting(n=20, C=9): 125,
 }
+# TEST_SETTINGS = {
+# 	TestSetting(n=20, C=5): 125,
+# 	TestSetting(n=25, C=10): 125,
+# 	TestSetting(n=27, C=11): 125,
+# 	TestSetting(n=28, C=12): 125,
+# 	TestSetting(n=29, C=13): 125,
+# 	TestSetting(n=30, C=15): 125,
+# }
 EXE = [
 	"../../build/SearchingAlgorithmsV2"
 ]
