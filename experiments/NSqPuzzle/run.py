@@ -30,14 +30,14 @@ TEST_SETTINGS = {
 	TestSetting(n=5, ctrl=100): 50,
 }
 EXE = [
-	"../build/SearchingAlgorithmsV2"
+	"../../build/SearchingAlgorithmsV2"
 ]
 def currentDirectory() -> str:
 	return os.path.dirname(os.path.abspath(__file__))
 os.chdir(currentDirectory())
 
 def makeTest(n: int, ctrl: int) -> str:
-	command = ["../build/DataCreation", "--n", str(n), "--tl", str(TIME_LIMIT)]
+	command = ["../../build/DataCreation", "--n", str(n), "--tl", str(TIME_LIMIT)]
 	if ctrl > 0:
 		command.append("--ctrl")
 		command.append(str(ctrl))
