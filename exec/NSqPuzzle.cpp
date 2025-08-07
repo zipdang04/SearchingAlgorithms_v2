@@ -43,7 +43,7 @@ int main(int argc, char**argv){
 	algorithms.push_back(new FocalSearch(statement, w));
 	// algorithms.push_back(new VDM_PE(statement));
 	// algorithms.push_back(new AStarPartialExpansion(statement, C));
-	// algorithms.push_back(new AStar(statement));
+	algorithms.push_back(new AStar(statement));
 	for (Algorithm *algorithm: algorithms) {
 		std::cerr << algorithm->getName() << std::endl;
 		std::cout << "start " << algorithm -> getName() << '\n';

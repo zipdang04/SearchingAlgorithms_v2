@@ -13,12 +13,14 @@ class TestSetting:
 
 TIME_LIMIT = 600
 TEST_SETTINGS = {
-	TestSetting(n=12, C=8): 125,
-	TestSetting(n=14, C=9): 125,
-	TestSetting(n=15, C=9): 125,
-	TestSetting(n=18, C=9): 125,
-	TestSetting(n=19, C=9): 125,
-	TestSetting(n=20, C=9): 125,
+	TestSetting(n=8, C=8): 70,
+	TestSetting(n=10, C=8): 70,
+	TestSetting(n=12, C=8): 70,
+	TestSetting(n=14, C=9): 70,
+	TestSetting(n=15, C=9): 70,
+	# TestSetting(n=18, C=9): 125,
+	# TestSetting(n=19, C=9): 125,
+	# TestSetting(n=20, C=9): 125,
 }
 # TEST_SETTINGS = {
 # 	TestSetting(n=20, C=5): 125,
